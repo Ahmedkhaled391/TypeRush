@@ -4,7 +4,7 @@
   --color-brand-heading: #e6f7ef;
   --color-brand-muted: #a9abb3;
   --color-panel:#1c2028; 
-  /* gray */
+  --color-link:#a1ffc2;
 }
 
 @layer base {
