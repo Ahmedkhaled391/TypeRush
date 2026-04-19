@@ -3,6 +3,8 @@ import multiplayerIcon from "../../assets/images/multiplayer icon.png"
 import overlay from "../../assets/images/Overlay.png"
 import { Link }  from "react-router-dom";
 import arrow from "../../assets/images/arrow.png"
+import a from "../../assets/images/A.png"
+import hash from "../../assets/images/hash.png"
 
 function Multiplayer() {
     return ( <>
@@ -14,15 +16,15 @@ function Multiplayer() {
                     <div className="absolute lg:left-5 lg:top-30 sm:top-20 left-5 top-5  flex flex-col gap-4 rounded-lg p-4">
                         <img src={multiplayerIcon} alt="Multiplayer icon" className="h-4 w-9" />
                         <h1 className="text-3xl font-extrabold text-brand-heading">Challenge Your Friends</h1>
-                        <p className="text-brand-muted">Want to test your skills? Why don't you challenge your friends in a 1v1 game</p>
+                        <p className="paragraph-muted">Want to test your skills? Why don't you challenge your friends in a 1v1 game</p>
                     </div>
                 </div>
             </div>
             <div className="right  flex items-center justify-center rounded-xl border bg-panel p-6 text-center md:col-span-4">
                 <div className="flex flex-col items-start gap-6 text-left">
                     <img src={overlay} alt="Overlay " />
-                    <h2 className="text-2xl font-extrabold leading-tight text-brand-heading">Level Progression</h2>
-                    <p className="text-sm text-brand-muted">Challenge Your Friends To Gain More Level Points</p>
+                    <h2 className="h2-title">Level Progression</h2>
+                    <p className="paragraph-muted-sm">Challenge Your Friends To Gain More Level Points</p>
                     <div className="progress flex w-full flex-col items-center justify-center gap-4">
                     <div className="line relative h-2 w-full rounded-full bg-amber-400 ">
                         <div className="absolute left-0 top-0 h-full bg-green-500 rounded-full transition-all duration-300 w-[48%]" >
@@ -38,14 +40,23 @@ function Multiplayer() {
                 </div>
             </div>
 
-            <div className="bottom  bg-panel grid w-full  items-center rounded-xl min-h-96 grid-cols-1 gap-6 px-6 py-10 md:col-span-12">
-                <div className="text col-span-8 flex flex-col gap-6 mx-6">
-                       <h2 className="font-extrabold text-3xl  ">Precision Architectured lessons</h2>
-                       <p className="text-brand-muted text-md max-w-md">Our curriculum isn't just about speed. We focus on muscle memory, ergonomic flow, and character frequency analysis to build a foundation that lasts.</p>
+            <div className="bottom  bg-dark-gray grid w-full  items-center rounded-xl min-h-96 grid-cols-1 gap-6 px-6 py-10 md:col-span-12 md:grid-cols-12">
+                <div className="text col-span-12 flex flex-col gap-6 mx-6 md:col-span-8">
+              <h2 className="h2-title-lg">Precision Architectured lessons</h2>
+              <p className="paragraph-muted-md max-w-md">Our curriculum isn't just about speed. We focus on muscle memory, ergonomic flow, and character frequency analysis to build a foundation that lasts.</p>
                        <Link to="/" className="text-link flex items-center gap-2 ">Browse Syllabus <img src={arrow} alt="" /></Link>
                 </div>
-                <div className="squares col-span 4 flex items-center justify-center gap-4">
-
+                <div className="squares col-span-12 flex items-center justify-center gap-4 md:col-span-4">
+                    <div className=" bg-light-gray  aspect-square min-h-32 min-w-23 flex flex-col items-center justify-center gap-3  "> 
+                        <img src={a} alt="Home image" className="scale-[1.2]" />
+                        <p className="paragraph-muted-md">Home row</p>
+                    </div>
+                    <div className=" bg-light-gray min-h-32    aspect-square min-w-23 flex flex-col items-center justify-center gap-3  "> 
+                        
+                        <img src={hash} alt="Home image" className="scale-[1.2]" />
+                        <p className="paragraph-muted-md">Symbols</p>
+                        
+                    </div>
                 </div>
             </div>
             
@@ -55,4 +66,4 @@ function Multiplayer() {
     </> );
 }
 
-export default Multiplayer;
+export default Multiplayer; 

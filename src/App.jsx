@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import Plans from './pages/Plans'
 
+
 function App() {
   return (
     <BrowserRouter>

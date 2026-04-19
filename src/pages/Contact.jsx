@@ -8,7 +8,7 @@ function Contact() {
                 <div className="space-y-8">
                     <div>
                         <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl">Contact Us</h1>
-                        <p className="mt-3 text-sm text-slate-400 sm:text-base">Have questions or feedback? We are here to help!</p>
+                        <p className="mt-3 paragraph-muted-responsive">Have questions or feedback? We are here to help!</p>
                     </div>
 
                     <div className="space-y-6">
@@ -16,21 +16,21 @@ function Contact() {
                             <i className="fa-solid fa-envelope mt-1 text-emerald-400"></i>
                             <div>
                                 <p className="font-semibold text-white">Email</p>
-                                <p className="text-sm text-slate-400">ahmedkhaled39119@gmail.com</p>
+                                <p className="paragraph-muted-sm">ahmedkhaled39119@gmail.com</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
                             <i className="fa-solid fa-location-dot mt-1 text-emerald-400"></i>
                             <div>
                                 <p className="font-semibold text-white">Location</p>
-                                <p className="text-sm text-slate-400">6th of October ,Giza</p>
+                                <p className="paragraph-muted-sm">6th of October ,Giza</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
                             <i className="fa-solid fa-clock mt-1 text-emerald-400"></i>
                             <div>
                                 <p className="font-semibold text-white">Working Hours</p>
-                                <p className="text-sm text-slate-400">Mon-Fri, 9am-6pm PST</p>
+                                <p className="paragraph-muted-sm">Mon-Fri, 9am-6pm PST</p>
                             </div>
                         </div>
                     </div>

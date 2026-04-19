@@ -44,7 +44,7 @@ function Plans() {
                     </table>
                 </div>
 
-                <p className="mt-4 text-sm text-slate-400">All plans include a free 7-day trial.</p>
+                <p className="mt-4 paragraph-muted-sm">All plans include a free 7-day trial.</p>
             </section>
         </>
     )

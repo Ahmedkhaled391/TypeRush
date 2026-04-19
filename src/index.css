@@ -1,10 +1,20 @@
 @import "tailwindcss";
 
 @theme {
+  --color-page-bg: #020617;
   --color-brand-heading: #e6f7ef;
   --color-brand-muted: #a9abb3;
   --color-panel:#1c2028; 
   --color-link:#a1ffc2;
+  --color-light-gray:#282c36;
+  --color-dark-gray:#161a21;
+  --color-light-mint-green:#A1FFC2;
+  --color-vibrant-mint-green:#00FC9A;
+  --color-dark-mint-green:#004627;
+  --color-cta-ink:#082b21;
+  --color-cta-button:#0f3f30;
+  --color-cta-button-hover:#0b3326;
+  --color-cta-button-text:#f3fff9;
 }
 
 @layer base {
@@ -18,7 +28,7 @@
   }
 
   body {
-    background-color: rgb(2 6 23);
+    background-color: var(--color-page-bg);
     color: white;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -27,4 +37,67 @@
   a {
     text-decoration: none;
   }
+}
+
+@layer components {
+  .h2-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--color-brand-heading);
+  }
+
+  .h2-title-lg {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: var(--color-brand-heading);
+  }
+
+  .h2-display {
+    font-size: 1.5rem;
+  }
+
+  .paragraph-muted {
+    color: var(--color-brand-muted);
+  }
+
+  .paragraph-muted-sm {
+    font-size: 0.875rem;
+    color: var(--color-brand-muted);
+  }
+
+  .paragraph-muted-md {
+    font-size: 1rem;
+    color: var(--color-brand-muted);
+  }
+
+  .paragraph-muted-responsive {
+    font-size: 0.875rem;
+    color: var(--color-brand-muted);
+  }
+
+  @media (min-width: 640px) {
+    .h2-display {
+      font-size: 1.875rem;
+    }
+
+    .paragraph-muted-responsive {
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .h2-display {
+      font-size: 2.25rem;
+    }
+  }
+  .line-clamp-no-ellipsis {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: visible;
+  
+}
+
 }
