@@ -34,9 +34,9 @@ function Hero() {
                 </div>
                 <div className="keyboard mx-auto mt-20 flex flex-col items-center justify-center gap-5 lg:flex-row">
                     <img src={keyboardImage} alt="Keyboard image" className=" w-full max-w-md" />
-                     <h2 className="max-w-2xl h2-display">
-                        Master touch typing and free your mind from the keyboard. Let your fingers do the thinking while your eyes stay focused on what matters. Transform typing from a conscious struggle into an unconscious skill just like playing an instrument
-                     </h2>
+                            <h2 className="max-w-2xl text-center text-lg font-medium leading-relaxed text-slate-200 sm:text-xl lg:text-left lg:text-2xl">
+                                Master touch typing and <span className="font-semibold text-emerald-300">free your mind from the keyboard</span>. Let your fingers do the thinking while your eyes stay focused on what matters. Transform typing from a conscious struggle into an unconscious skill, just like playing an instrument.
+                            </h2>
                 </div>
             </section>
     </> );
