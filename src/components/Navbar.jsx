@@ -44,7 +44,7 @@ function Navbar() {
                         <i className="fa-solid fa-moon text-xl"></i>
                     </button>
                     <NavLink
-                        to="/"
+                        to="/register"
                         onClick={() => setMenuOpen(false)}
                         className="inline-flex w-fit rounded-lg bg-emerald-400 px-4 py-2 font-semibold text-slate-950 transition-transform hover:scale-105"
                     >
@@ -64,7 +64,7 @@ function Navbar() {
                             <i className="fa-solid fa-moon text-xl"></i>
                         </button>
                         <NavLink
-                            to="/"
+                            to="/register"
                             onClick={() => setMenuOpen(false)}
                             className="inline-flex w-fit rounded-lg bg-emerald-400 px-4 py-2 font-semibold text-slate-950 transition-transform hover:scale-105"
                         >
