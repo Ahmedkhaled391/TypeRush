@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 
-function Plans() {
+function Lessons() {
     return (
         <>
             <Navbar />
@@ -50,4 +50,4 @@ function Plans() {
     )
 }
 
-export default Plans;
+export default Lessons;

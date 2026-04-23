@@ -1,16 +1,11 @@
+import nameicon from "../../assets/images/nameicon.png"
 import emailicon from "../../assets/images/emailicon.png"
 import passwordicon from "../../assets/images/passwordicon.png"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import ball from "../../assets/images/ball.png"
-import { useState } from "react"
 
-function Login() {
-    const [showPassword, setShowPassword] = useState(false)
 
-    const togglePasswordVisibility = () => {
-        setShowPassword((prev) => !prev)
-    }
-
+function Signup() {
     return (
         <>
             <div className="grid min-h-dvh place-items-center px-4 py-8 sm:px-6">
@@ -24,11 +19,21 @@ function Login() {
                                 TypeRush
                             </h1>
                             <p className="paragraph-muted-sm mt-4 text-[0.78rem] font-medium tracking-[0.22em]">
-                                WELCOME BACK TO THE GRID
+                                JOIN THE PRECISION NETWORK
                             </p>
                         </div>
 
                         <div className="mt-9 space-y-5">
+                            <div className="name flex flex-col gap-2.5">
+                                <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                    Username
+                                </label>
+                                <div className="field relative text-white/35">
+                                    <img src={nameicon} alt="username icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
+                                    <input id="name" type="text" placeholder=" Username" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                </div>
+                            </div>
+
                             <div className="mail flex flex-col gap-2.5">
                                 <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
                                     Email
@@ -45,28 +50,29 @@ function Login() {
                                 </label>
                                 <div className="field relative text-white/35">
                                     <img src={passwordicon} alt="password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="password" type={showPassword ? "text" : "password"} placeholder="Enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 pr-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
-                                    <button
-                                        type="button"
-                                        onClick={togglePasswordVisibility}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/55 transition hover:text-vibrant-mint-green"
-                                        aria-label={showPassword ? "Hide password" : "Show password"}
-                                    >
-                                        <i className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"} h-4 w-4`} />
-                                    </button>
+                                    <input id="password" type="password" placeholder="Min. 8 chars" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                </div>
+                            </div>
+
+                            <div className="name flex flex-col gap-2.5">
+                                <label htmlFor="confirm-password" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                    Confirm Password
+                                </label>
+                                <div className="field relative text-white/35">
+                                    <img src={nameicon} alt="confirm password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
+                                    <input id="confirm-password" type="password" placeholder="Re-enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
                         </div>
 
                         <div className="mt-9 text-center">
-                            <button className="w-full rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5">
-                                LOGIN
-                            </button>
-
-                            <p className="paragraph-muted-sm mt-3 text-base">
-                                Don&apos;t have an account?
-                                <Link to="/register" className="mx-1 font-semibold text-vibrant-mint-green">
-                                    Sign up
+                            <Link to="/verify-email" className="inline-flex w-full items-center justify-center rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5">
+                                CREATE ACCOUNT
+                            </Link>
+                            <p className="paragraph-muted-sm mt-12 text-base">
+                                Already have an account?
+                                <Link to="/login" className="mx-1 font-semibold text-vibrant-mint-green">
+                                    Login
                                 </Link>
                             </p>
                         </div>
@@ -85,7 +91,7 @@ function Login() {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default Login
+export default Signup;

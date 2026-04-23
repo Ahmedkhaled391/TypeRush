@@ -5,7 +5,7 @@ function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false)
     const navItems = [
         { to: "/", label: "Home" },
-        { to: "/plans", label: "Lessons" },
+        { to: "/Lessons", label: "Lessons" },
         { to: "/contact", label: "Contact us" },
         { to: "/challenge", label: "1v1 Challenge" },
         { to: "/stats", label: "Stats" },

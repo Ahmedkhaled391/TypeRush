@@ -8,7 +8,7 @@ function Cta() {
                         Ready to break the 100 WPM barrier?
                     </h2>
                     <Link
-                        to="/plans"
+                        to="/lessons"
                         className="rounded-xl bg-cta-button px-6 py-3 text-sm font-bold text-cta-button-text transition duration-150 hover:-translate-y-px hover:bg-cta-button-hover"
                     >
                         Join the Elite

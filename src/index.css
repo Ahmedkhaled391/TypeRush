@@ -15,6 +15,8 @@
   --color-cta-button:#0f3f30;
   --color-cta-button-hover:#0b3326;
   --color-cta-button-text:#f3fff9;
+  --color-slate-gray:#45484F;
+  --color-dark-navy-gray:#10131A;
 }
 
 @layer base {
