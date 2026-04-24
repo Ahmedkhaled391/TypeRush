@@ -43,8 +43,8 @@ function EmailVerification() {
 
                             <p className="paragraph-muted-sm mt-10 text-base">
                                 Back to
-                                <Link to="/login" className="mx-1 font-semibold text-vibrant-mint-green">
-                                    Login
+                                <Link to="/register" className="mx-1 font-semibold text-vibrant-mint-green">
+                                    Sign up
                                 </Link>
                             </p>
                         </div>

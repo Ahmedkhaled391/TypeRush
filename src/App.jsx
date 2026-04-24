@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import VerifyEmail from './pages/VerifyEmail'
 import Multiplater from './pages/Multiplayer'
+import Practise from './components/Lessons/Practise'
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/lessons" element={<Lessons />} />
+        <Route path="/lessons/:lessonNumber/practise" element={<Practise />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
