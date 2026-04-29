@@ -4,7 +4,7 @@ import locked from "../../assets/images/locked.png";
 import { useNavigate } from "react-router-dom";
 
 const TOTAL_LESSONS = 100;
-const CURRENT_LESSON = 2;
+const CURRENT_LESSON = 5;
 
 function getLessonStatus(lessonNumber) {
   if (lessonNumber < CURRENT_LESSON) return "completed";
@@ -12,17 +12,15 @@ function getLessonStatus(lessonNumber) {
   return "locked";
 }
 
-function Lessons() {
-  const navigate = useNavigate();
-
-  const lessons = Array.from({ length: TOTAL_LESSONS }, (_, index) => {
-    const lessonNumber = index + 1;
-    return {
-      lessonNumber,
-      status: getLessonStatus(lessonNumber),
-    };
-  });
-
+function Lessons(){
+  const navigate = useNavigate()
+  const lessons = []
+  for(let i=1;i<=TOTAL_LESSONS;i++){
+    lessons.push({
+      lessonNumber: i,
+      status: getLessonStatus(i)
+    })
+}
   const statusStyles = {
     completed:
       "bg-cta-button border border-mint-green text-light-mint-green hover:border-vibrant-mint-green",

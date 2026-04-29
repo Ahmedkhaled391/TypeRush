@@ -1,0 +1,502 @@
+[
+  {
+    "id": 1,
+    "title": "Lesson 1: Home Row Keys",
+    "text": "The home row keys are the foundation of touch typing. Place your fingers on the home row: asdf for your left hand and jkl; for your right hand. Keep your fingers resting on these keys and practice maintaining proper posture and hand position."
+  },
+  {
+    "id": 2,
+    "title": "Lesson 2: Top Row Keys",
+    "text": "Now let's practice the top row keys. Your fingers should move from the home row to reach the letters q, w, e, r, t, y, u, i, o, p. Remember to return to the home row position after each keystroke."
+  },
+  {
+    "id": 3,
+    "title": "Lesson 3: Bottom Row Keys",
+    "text": "The bottom row contains the letters z, x, c, v, b, n, m. These keys require a stretch from your home row position. Practice moving your fingers down to these keys while maintaining accuracy and speed."
+  },
+  {
+    "id": 4,
+    "title": "Lesson 4: Number Row",
+    "text": "Typing numbers is essential for proficiency. The number row contains 1 through 0, along with symbols like !, @, #, $, %, ^, &, *, (, and ). Practice these with proper finger positioning from the home row."
+  },
+  {
+    "id": 5,
+    "title": "Lesson 5: Punctuation and Symbols",
+    "text": "Master the special characters and punctuation marks. Practice typing periods, commas, question marks, exclamation points, colons, semicolons, and apostrophes. These are crucial for writing proper English text."
+  },
+  {
+    "id": 6,
+    "title": "Lesson 6: Speed Building",
+    "text": "Now that you know all the keys, let's work on building speed. Type these common English words at a steady pace: the, and, for, are, but, not, you, all, can, her, was, one, our, out, had."
+  },
+  {
+    "id": 7,
+    "title": "Lesson 7: Common Phrases",
+    "text": "Practice typing common English phrases to improve your real-world typing speed. These phrases include: how are you, thank you, please help, good morning, have a nice day, see you soon, and many more."
+  },
+  {
+    "id": 8,
+    "title": "Lesson 8: Short Sentences",
+    "text": "Type short sentences to practice transitioning between letters smoothly. Example: The cat sat on the mat. She was very happy. He went to the store. They played in the park. Everyone had fun today."
+  },
+  {
+    "id": 9,
+    "title": "Lesson 9: Medium Passages",
+    "text": "Now tackle medium-length passages to build endurance and accuracy. Focus on maintaining consistent speed while keeping errors to a minimum. Remember to keep your hands relaxed and your eyes on the source material, not the keyboard."
+  },
+  {
+    "id": 10,
+    "title": "Lesson 10: Advanced Typing",
+    "text": "You've reached the advanced level! Practice complex sentences with varied vocabulary and punctuation. Challenge yourself with technical terms, longer words, and more intricate sentence structures. Your goal is to type accurately and quickly."
+  },
+  {
+    "id": 11,
+    "title": "Lesson 11: Left Hand Practice",
+    "text": "Focus exclusively on your left hand keys: q, w, e, r, t, a, s, d, f, g, z, x, c, v, b. Type the following words using only your left hand: great, water, vexed, brave, tread, crest, swept, graze, feast, bread."
+  },
+  {
+    "id": 12,
+    "title": "Lesson 12: Right Hand Practice",
+    "text": "Now focus on your right hand keys: y, u, i, o, p, h, j, k, l, n, m. Practice these words: yolk, milk, pink, holy, jump, link, moon, polo, hill, union, monk, minor, until, hobby, knoll."
+  },
+  {
+    "id": 13,
+    "title": "Lesson 13: Capital Letters",
+    "text": "Practice using the Shift key to type capital letters. Always use the opposite hand's Shift key when capitalizing. Type: Hello, World, My Name Is, The Quick Brown Fox, Jumps Over, The Lazy Dog, Good Morning, Have A Great Day."
+  },
+  {
+    "id": 14,
+    "title": "Lesson 14: Common Three-Letter Words",
+    "text": "Three-letter words are the building blocks of English. Practice: the, and, for, are, but, not, you, all, can, her, was, one, our, out, had, his, she, him, his, its, may, now, old, see, two, who, did, get, has, him."
+  },
+  {
+    "id": 15,
+    "title": "Lesson 15: Common Four-Letter Words",
+    "text": "Build fluency with four-letter words: that, with, this, from, they, will, what, been, have, were, your, when, some, more, than, like, into, time, only, just, know, take, over, also, back, good, much, well, come, here."
+  },
+  {
+    "id": 16,
+    "title": "Lesson 16: Five-Letter Words",
+    "text": "Practice five-letter words to extend your typing fluency: about, after, again, along, being, below, bring, could, doing, every, first, found, given, going, great, group, hands, house, large, later, might, never, often, other, place, right, still, their, there, think."
+  },
+  {
+    "id": 17,
+    "title": "Lesson 17: Longer Words",
+    "text": "Challenge yourself with longer, more complex words: absolutely, accomplishment, appreciate, beautiful, circumstances, comfortable, communicate, completely, considering, definitely, development, difference, environment, everything, experience, government, immediately, important, information, interesting."
+  },
+  {
+    "id": 18,
+    "title": "Lesson 18: Typing Numbers",
+    "text": "Practice typing numbers quickly and accurately: 1234567890, 9876543210, 1122334455, 5544332211, 1357924680, 2468013579. Now try mixing numbers with text: 3 cats, 10 dogs, 25 people, 100 miles, 1000 words, 42 questions."
+  },
+  {
+    "id": 19,
+    "title": "Lesson 19: Email Addresses",
+    "text": "Typing email addresses requires precision with special characters. Practice: user@example.com, hello.world@mail.net, first.last@company.org, support@website.io, admin@domain.co, contact@service.com, info@business.net."
+  },
+  {
+    "id": 20,
+    "title": "Lesson 20: Web Addresses",
+    "text": "Practice typing URLs accurately: https://www.example.com, https://mail.google.com, https://github.com/user/repo, https://en.wikipedia.org, https://www.youtube.com, https://stackoverflow.com, https://www.amazon.com."
+  },
+  {
+    "id": 21,
+    "title": "Lesson 21: Keyboard Shortcuts",
+    "text": "Familiarity with keyboard shortcuts boosts productivity. Common shortcuts include: Ctrl+C to copy, Ctrl+V to paste, Ctrl+X to cut, Ctrl+Z to undo, Ctrl+S to save, Ctrl+A to select all, Ctrl+F to find, Alt+Tab to switch windows."
+  },
+  {
+    "id": 22,
+    "title": "Lesson 22: Scientific Terms",
+    "text": "Practice typing scientific vocabulary: photosynthesis, mitochondria, chromosome, ecosystem, hypothesis, evaporation, acceleration, gravitational, electromagnetic, thermodynamics, biodiversity, crystallization, decomposition, atmospheric, precipitation."
+  },
+  {
+    "id": 23,
+    "title": "Lesson 23: Technology Words",
+    "text": "Type these technology-related terms: algorithm, database, interface, software, hardware, network, protocol, encryption, bandwidth, framework, repository, deployment, authentication, microprocessor, semiconductor, virtualization, cybersecurity, infrastructure."
+  },
+  {
+    "id": 24,
+    "title": "Lesson 24: Business Vocabulary",
+    "text": "Practice business terms: management, strategy, operations, analytics, marketing, investment, acquisition, stakeholder, productivity, collaboration, negotiation, development, leadership, performance, sustainability, entrepreneurship, organization, procurement."
+  },
+  {
+    "id": 25,
+    "title": "Lesson 25: Medical Terms",
+    "text": "Type these medical vocabulary words: diagnosis, treatment, prescription, cardiovascular, neurology, respiratory, pharmaceutical, vaccination, inflammation, metabolism, orthopedic, pediatrics, psychology, immunology, epidemiology, rehabilitation, anesthesia."
+  },
+  {
+    "id": 26,
+    "title": "Lesson 26: Legal Terms",
+    "text": "Practice legal vocabulary: jurisdiction, litigation, defendant, plaintiff, testimony, evidence, prosecution, amendment, constitution, legislation, arbitration, enforcement, regulation, compliance, negligence, settlement, affidavit, confidential."
+  },
+  {
+    "id": 27,
+    "title": "Lesson 27: Literary Passage",
+    "text": "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness."
+  },
+  {
+    "id": 28,
+    "title": "Lesson 28: Famous Quotes",
+    "text": "Type these famous quotes: To be or not to be, that is the question. Ask not what your country can do for you. I have a dream. The only thing we have to fear is fear itself. In the beginning God created the heavens and the earth."
+  },
+  {
+    "id": 29,
+    "title": "Lesson 29: Poetry Typing",
+    "text": "Roses are red, violets are blue, sugar is sweet, and so are you. Two roads diverged in a yellow wood, and sorry I could not travel both. Shall I compare thee to a summer's day? Thou art more lovely and more temperate."
+  },
+  {
+    "id": 30,
+    "title": "Lesson 30: News Article Style",
+    "text": "A new study published Monday reveals that regular typing practice can significantly improve cognitive function and hand-eye coordination. Researchers at the University of Technology found that individuals who type more than 60 words per minute showed improved memory and multitasking abilities."
+  },
+  {
+    "id": 31,
+    "title": "Lesson 31: Typing with Commas",
+    "text": "Practice using commas correctly: I went to the store, bought milk, eggs, and bread, then came home. She likes swimming, running, and cycling. He is tall, dark, and handsome. The weather is warm, sunny, and perfect for a walk."
+  },
+  {
+    "id": 32,
+    "title": "Lesson 32: Typing with Apostrophes",
+    "text": "Practice apostrophes in contractions and possessives: I'm, you're, he's, she's, it's, we're, they're, don't, can't, won't, shouldn't, couldn't, wouldn't. Also: John's book, Mary's pen, the dog's collar, the children's toys, the teacher's desk."
+  },
+  {
+    "id": 33,
+    "title": "Lesson 33: Question Sentences",
+    "text": "Practice typing questions: Where are you going today? What time does the meeting start? How many people attended the event? Why did you choose that option? Can you explain the process to me? Who is responsible for this project? When will the results be ready?"
+  },
+  {
+    "id": 34,
+    "title": "Lesson 34: Exclamatory Sentences",
+    "text": "Type exclamatory sentences with enthusiasm: What a beautiful day! I can't believe how fast you type! This is absolutely incredible! You've done an amazing job today! Congratulations on your achievement! That was the best performance I've ever seen! Excellent work!"
+  },
+  {
+    "id": 35,
+    "title": "Lesson 35: Mixed Punctuation",
+    "text": "Practice all punctuation marks together: Hello, world! How are you today? I'm doing well, thank you. Please visit us at: www.example.com. Our hours are 9:00 a.m. to 5:00 p.m., Monday through Friday. Call us at (555) 123-4567 for more information."
+  },
+  {
+    "id": 36,
+    "title": "Lesson 36: Code Typing",
+    "text": "Practice typing code-like text: if (x > 0) { return true; } else { return false; } const name = 'TypeRush'; let count = 0; function add(a, b) { return a + b; } console.log('Hello, World!'); const arr = [1, 2, 3, 4, 5];"
+  },
+  {
+    "id": 37,
+    "title": "Lesson 37: Tab and Indent Practice",
+    "text": "When typing code or structured text, indentation matters. Practice the following structured text carefully, paying attention to spacing and alignment. Good habits with spacing lead to cleaner, more readable output whether writing documents or programs."
+  },
+  {
+    "id": 38,
+    "title": "Lesson 38: Double Letters",
+    "text": "Practice words with double letters: coffee, bottle, balloon, spelling, committee, address, success, football, swimming, classroom, happiness, necessary, different, occasion, recommend, beginning, tomorrow, tomorrow, excellent, opportunity, accommodation."
+  },
+  {
+    "id": 39,
+    "title": "Lesson 39: Silent Letters",
+    "text": "Words with silent letters can trip up even seasoned typists. Practice: knight, know, kneel, knife, knock, gnome, gnat, pneumonia, psychology, receipt, island, lamb, thumb, comb, doubt, subtle, often, listen, castle, whistle."
+  },
+  {
+    "id": 40,
+    "title": "Lesson 40: Homophones",
+    "text": "Homophones sound the same but are spelled differently. Practice: their, there, they're. Your, you're. Its, it's. To, too, two. Hear, here. Wear, where, we're. Buy, by, bye. Right, write, rite. Knight, night. Flour, flower. Peace, piece."
+  },
+  {
+    "id": 41,
+    "title": "Lesson 41: Geography Terms",
+    "text": "Type these geography words: continent, peninsula, archipelago, equator, hemisphere, longitude, latitude, meridian, tropics, savanna, tundra, Antarctic, Mediterranean, Himalayan, Mississippi, Amazon, Sahara, Atlantic, Pacific, Caribbean."
+  },
+  {
+    "id": 42,
+    "title": "Lesson 42: Countries of the World",
+    "text": "Practice typing country names: Afghanistan, Bangladesh, Cameroon, Denmark, Ethiopia, Finland, Guatemala, Honduras, Indonesia, Japan, Kazakhstan, Luxembourg, Madagascar, Netherlands, Oman, Pakistan, Qatar, Romania, Switzerland, Tanzania, Ukraine, Venezuela."
+  },
+  {
+    "id": 43,
+    "title": "Lesson 43: Capital Cities",
+    "text": "Type these capital cities: Washington D.C., London, Paris, Berlin, Tokyo, Beijing, Moscow, Canberra, Ottawa, Brasilia, Pretoria, Cairo, New Delhi, Bangkok, Jakarta, Nairobi, Oslo, Stockholm, Vienna, Brussels, Amsterdam, Rome, Madrid."
+  },
+  {
+    "id": 44,
+    "title": "Lesson 44: Math Vocabulary",
+    "text": "Practice mathematics vocabulary: multiplication, subtraction, denominator, numerator, quadratic, polynomial, circumference, perpendicular, hypotenuse, logarithm, probability, coefficient, differentiation, integration, trigonometry, arithmetic, geometry, algebra."
+  },
+  {
+    "id": 45,
+    "title": "Lesson 45: Days and Months",
+    "text": "Type days and months: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday. January, February, March, April, May, June, July, August, September, October, November, December. Spring, Summer, Autumn, Winter."
+  },
+  {
+    "id": 46,
+    "title": "Lesson 46: Colors and Shades",
+    "text": "Type color names and shades: red, orange, yellow, green, blue, indigo, violet, crimson, scarlet, magenta, turquoise, chartreuse, lavender, maroon, burgundy, ivory, beige, charcoal, navy, teal, coral, salmon, ochre, amber, cerulean."
+  },
+  {
+    "id": 47,
+    "title": "Lesson 47: Food and Cuisine",
+    "text": "Practice food vocabulary: spaghetti, lasagna, paella, croissant, quesadilla, guacamole, bruschetta, cappuccino, espresso, croissant, ratatouille, couscous, hummus, falafel, sashimi, tempura, kimchi, biryani, pierogi, schnitzel."
+  },
+  {
+    "id": 48,
+    "title": "Lesson 48: Animal Kingdom",
+    "text": "Type animal names: hippopotamus, chimpanzee, rhinoceros, crocodile, flamingo, porcupine, armadillo, platypus, salamander, chameleon, wolverine, cheetah, leopard, anaconda, piranha, barracuda, albatross, hummingbird, octopus, jellyfish."
+  },
+  {
+    "id": 49,
+    "title": "Lesson 49: Music Vocabulary",
+    "text": "Practice music terms: symphony, orchestra, instrument, conductor, composition, crescendo, diminuendo, allegretto, fortissimo, pianissimo, saxophone, clarinet, trombone, percussion, harmonica, accordion, xylophone, synthesizer, microphone, amplifier."
+  },
+  {
+    "id": 50,
+    "title": "Lesson 50: Halfway Milestone",
+    "text": "Congratulations on reaching lesson 50! You are halfway through the TypeRush typing course. By now, your fingers should be finding the keys with greater ease and your speed should be steadily increasing. Keep pushing forward — 50 more lessons await!"
+  },
+  {
+    "id": 51,
+    "title": "Lesson 51: Sports Vocabulary",
+    "text": "Type sports terms: basketball, volleyball, badminton, gymnastics, swimming, marathon, triathlon, wrestling, skateboard, snowboard, windsurfing, archery, equestrian, weightlifting, fencing, javelin, decathlon, pentathlon, championship, tournament."
+  },
+  {
+    "id": 52,
+    "title": "Lesson 52: Weather Vocabulary",
+    "text": "Practice weather words: thunderstorm, lightning, hurricane, cyclone, blizzard, avalanche, earthquake, temperature, barometric, precipitation, atmospheric, evaporation, condensation, visibility, humidity, thermometer, forecast, meteorology."
+  },
+  {
+    "id": 53,
+    "title": "Lesson 53: Human Body",
+    "text": "Type body-related terms: skeleton, ligament, cartilage, diaphragm, capillary, cerebellum, hypothalamus, pancreas, appendix, esophagus, intestine, vertebrae, phalanges, mandible, clavicle, shoulder, abdomen, metabolism, circulation, respiration."
+  },
+  {
+    "id": 54,
+    "title": "Lesson 54: Philosophy Terms",
+    "text": "Practice philosophical vocabulary: epistemology, metaphysics, empiricism, rationalism, existentialism, phenomenology, utilitarianism, consequentialism, deontology, relativism, nihilism, stoicism, hedonism, determinism, consciousness, subjectivity."
+  },
+  {
+    "id": 55,
+    "title": "Lesson 55: Emotions and Feelings",
+    "text": "Type emotion words: happiness, sadness, excitement, disappointment, enthusiasm, melancholy, nostalgia, gratitude, compassion, empathy, frustration, anxiety, contentment, loneliness, confidence, embarrassment, astonishment, bewilderment, tranquility."
+  },
+  {
+    "id": 56,
+    "title": "Lesson 56: Architecture Terms",
+    "text": "Practice architecture vocabulary: foundation, structure, blueprint, cantilever, buttress, portico, balustrade, colonnade, rotunda, mezzanine, parapet, pediment, cornice, pilaster, architrave, fenestration, renovation, sustainability, infrastructure."
+  },
+  {
+    "id": 57,
+    "title": "Lesson 57: Finance Terms",
+    "text": "Type finance vocabulary: investment, portfolio, dividend, depreciation, liquidity, volatility, diversification, capitalization, amortization, collateral, securities, commodities, derivatives, cryptocurrency, blockchain, inflation, recession, fiscal, monetary."
+  },
+  {
+    "id": 58,
+    "title": "Lesson 58: Environmental Science",
+    "text": "Practice environmental terms: deforestation, biodiversity, sustainability, conservation, ecosystem, greenhouse, renewable, photovoltaic, geothermal, desalination, reforestation, pollution, contamination, restoration, stewardship, carbon footprint, recycling."
+  },
+  {
+    "id": 59,
+    "title": "Lesson 59: Transportation",
+    "text": "Type transportation words: automobile, motorcycle, helicopter, submarine, locomotive, monorail, spacecraft, hovercraft, catamaran, dirigible, freight, commuter, infrastructure, intersection, roundabout, pedestrian, navigation, acceleration, deceleration."
+  },
+  {
+    "id": 60,
+    "title": "Lesson 60: Astronomy",
+    "text": "Practice astronomy vocabulary: constellation, supernova, nebula, galaxy, quasar, pulsar, blackhole, asteroid, meteoroid, exoplanet, telescope, observatory, gravitational, electromagnetic, spectroscopy, heliosphere, interstellar, cosmological, photon."
+  },
+  {
+    "id": 61,
+    "title": "Lesson 61: Political Science",
+    "text": "Type political vocabulary: democracy, republic, parliament, judiciary, legislation, sovereignty, referendum, constituency, bureaucracy, diplomacy, imperialism, nationalism, federalism, geopolitics, totalitarianism, authoritarianism, libertarianism, constitutionalism."
+  },
+  {
+    "id": 62,
+    "title": "Lesson 62: Paragraph Practice",
+    "text": "Technology has fundamentally transformed the way people work, communicate, and live. From smartphones to artificial intelligence, digital tools shape our daily routines. The pace of innovation continues to accelerate, demanding that individuals and organizations adapt quickly to remain competitive."
+  },
+  {
+    "id": 63,
+    "title": "Lesson 63: Storytelling",
+    "text": "Once upon a time, in a small village nestled between two mountains, there lived a young girl named Clara. Every morning she would walk to the river to fetch water, and every evening she would sit by the fire and listen to her grandfather tell stories of the ancient world."
+  },
+  {
+    "id": 64,
+    "title": "Lesson 64: Letter Writing",
+    "text": "Dear Mr. Johnson, I am writing to express my interest in the Software Engineer position advertised on your website. I have three years of experience in web development and a strong background in JavaScript, React, and Node.js. I believe my skills would be a great fit for your team."
+  },
+  {
+    "id": 65,
+    "title": "Lesson 65: Social Media Style",
+    "text": "Just finished a 10K run this morning! Feeling amazing. #fitness #running #healthy. Check out this incredible sunset I captured last night. Absolutely breathtaking! Don't forget to like and share. Tag a friend who needs to see this. Subscribe for more daily content!"
+  },
+  {
+    "id": 66,
+    "title": "Lesson 66: Academic Writing",
+    "text": "This paper examines the relationship between digital literacy and academic performance in secondary school students. The research methodology involves a mixed-methods approach, combining quantitative surveys with qualitative interviews to provide a comprehensive analysis of the subject matter."
+  },
+  {
+    "id": 67,
+    "title": "Lesson 67: Technical Writing",
+    "text": "To install the software, first download the installer from the official website. Run the executable file and follow the on-screen instructions. When prompted, accept the license agreement and select the installation directory. Click Finish when the installation is complete."
+  },
+  {
+    "id": 68,
+    "title": "Lesson 68: Chat Messages",
+    "text": "Hey! Are you free this afternoon? I was thinking we could grab coffee and catch up. It's been ages since we last met. Let me know what time works for you. BTW have you seen the new movie that just came out? I heard it's really good! Let's go see it this weekend."
+  },
+  {
+    "id": 69,
+    "title": "Lesson 69: Recipe Instructions",
+    "text": "Preheat the oven to 375 degrees Fahrenheit. Mix together 2 cups of flour, 1 teaspoon of baking soda, and half a teaspoon of salt. In a separate bowl, cream together 1 cup of butter and 3/4 cup of sugar. Combine both mixtures and fold in chocolate chips. Bake for 10 to 12 minutes."
+  },
+  {
+    "id": 70,
+    "title": "Lesson 70: Product Descriptions",
+    "text": "Introducing the all-new UltraBook Pro — the thinnest, lightest laptop ever engineered. Featuring a stunning 14-inch OLED display, 12-hour battery life, and a blazing-fast processor, it redefines portable computing. Available in midnight black, silver, and rose gold starting at $999."
+  },
+  {
+    "id": 71,
+    "title": "Lesson 71: Rhyming Words",
+    "text": "Practice sets of rhyming words: cat, bat, hat, mat, rat, sat. Light, night, right, sight, tight, might. Love, dove, above, shove. Blue, clue, due, flew, glue, knew, new, true. Bright, fight, height, kite, quite, white, write."
+  },
+  {
+    "id": 72,
+    "title": "Lesson 72: Alliteration Practice",
+    "text": "Practice these alliterative phrases: Peter Piper picked a peck of pickled peppers. She sells seashells by the seashore. How much wood would a woodchuck chuck. Sally sells seashells. Freddy's frogs frantically fled from the flooding fields. Big blue balloons bounced brilliantly."
+  },
+  {
+    "id": 73,
+    "title": "Lesson 73: Tongue Twisters",
+    "text": "Challenge your fingers with tongue twisters: The sixth sick sheik's sixth sheep's sick. Unique New York. Toy boat, toy boat, toy boat. Red lorry, yellow lorry. She sees cheese. Which witch is which? How can a clam cram in a clean cream can? Six slippery snails slid slowly seaward."
+  },
+  {
+    "id": 74,
+    "title": "Lesson 74: Compound Words",
+    "text": "Practice compound words: sunflower, raincoat, moonlight, thunderstorm, waterfall, earthquake, fireplace, footprint, headache, heartbeat, lighthouse, newspaper, overcoat, paintbrush, quarterback, rainbow, skateboard, toothbrush, underline, windmill."
+  },
+  {
+    "id": 75,
+    "title": "Lesson 75: Prefixes",
+    "text": "Practice words with common prefixes: re- (redo, rewrite, rebuild), un- (undo, unhappy, unclear), pre- (preview, prepare, prevent), mis- (mistake, misuse, misplace), over- (overcome, overlook, overdo), under- (understand, underline, undermine), dis- (disagree, dismiss, disappear)."
+  },
+  {
+    "id": 76,
+    "title": "Lesson 76: Suffixes",
+    "text": "Practice words with common suffixes: -tion (action, nation, relation), -ness (happiness, darkness, kindness), -ment (movement, government, agreement), -less (helpless, careless, fearless), -ful (beautiful, powerful, wonderful), -ly (quickly, slowly, loudly), -able (capable, reliable, comfortable)."
+  },
+  {
+    "id": 77,
+    "title": "Lesson 77: Contractions",
+    "text": "Practice all common contractions: I'm, I've, I'll, I'd, you're, you've, you'll, you'd, he's, he'll, he'd, she's, she'll, she'd, it's, it'll, we're, we've, we'll, we'd, they're, they've, they'll, they'd, don't, doesn't, didn't, can't, couldn't, won't, wouldn't, shouldn't."
+  },
+  {
+    "id": 78,
+    "title": "Lesson 78: Adjectives",
+    "text": "Build vocabulary with adjectives: beautiful, magnificent, extraordinary, sophisticated, compassionate, adventurous, courageous, determined, enthusiastic, fascinating, generous, humorous, imaginative, jubilant, knowledgeable, luminous, mysterious, nostalgic, optimistic, passionate."
+  },
+  {
+    "id": 79,
+    "title": "Lesson 79: Adverbs",
+    "text": "Practice adverbs: quickly, slowly, carefully, accurately, efficiently, effortlessly, brilliantly, gracefully, eagerly, perfectly, confidently, silently, patiently, boldly, gently, fiercely, calmly, continuously, dramatically, enthusiastically, simultaneously."
+  },
+  {
+    "id": 80,
+    "title": "Lesson 80: Verbs in Action",
+    "text": "Type these action verbs: accelerate, accomplish, achieve, communicate, concentrate, construct, contribute, demonstrate, encourage, establish, illustrate, investigate, negotiate, organize, participate, produce, recognize, strengthen, understand, utilize."
+  },
+  {
+    "id": 81,
+    "title": "Lesson 81: Interview Questions",
+    "text": "Practice typing common interview questions: Tell me about yourself. What are your greatest strengths? Where do you see yourself in five years? Why do you want to work here? Can you describe a challenging situation and how you handled it? What motivates you? Do you have any questions for us?"
+  },
+  {
+    "id": 82,
+    "title": "Lesson 82: Cover Letter",
+    "text": "I am excited to apply for the Marketing Manager position at your company. With over five years of experience in digital marketing and a proven track record of growing brand awareness, I am confident in my ability to contribute meaningfully to your team and help achieve your business objectives."
+  },
+  {
+    "id": 83,
+    "title": "Lesson 83: Resume Bullet Points",
+    "text": "Developed and implemented a customer engagement strategy that increased retention by 23%. Led a cross-functional team of 12 members to deliver the project two weeks ahead of schedule. Reduced operational costs by 15% through process automation and workflow optimization."
+  },
+  {
+    "id": 84,
+    "title": "Lesson 84: Scientific Method",
+    "text": "The scientific method involves several key steps: observation, question formulation, hypothesis development, experimentation, data collection, analysis, and conclusion. Scientists use controlled experiments to test hypotheses and ensure that results are reproducible and valid."
+  },
+  {
+    "id": 85,
+    "title": "Lesson 85: Historical Events",
+    "text": "Type key historical phrases: the French Revolution began in 1789. The Industrial Revolution transformed manufacturing in the 18th and 19th centuries. World War I ended with the Treaty of Versailles in 1919. The moon landing occurred on July 20, 1969. The Berlin Wall fell in November 1989."
+  },
+  {
+    "id": 86,
+    "title": "Lesson 86: Programming Concepts",
+    "text": "Practice programming vocabulary: variable, function, loop, array, object, class, method, parameter, argument, return, boolean, integer, string, recursion, iteration, inheritance, polymorphism, encapsulation, abstraction, interface, exception, debugging, refactoring."
+  },
+  {
+    "id": 87,
+    "title": "Lesson 87: HTML Tags",
+    "text": "Practice typing HTML: <!DOCTYPE html>, <html lang='en'>, <head>, <title>My Page</title>, </head>, <body>, <h1>Hello World</h1>, <p>This is a paragraph.</p>, <a href='#'>Click here</a>, <img src='image.jpg' alt='Image'>, </body>, </html>."
+  },
+  {
+    "id": 88,
+    "title": "Lesson 88: CSS Properties",
+    "text": "Practice CSS: body { margin: 0; padding: 0; font-family: Arial, sans-serif; } .container { max-width: 1200px; margin: 0 auto; } h1 { color: #333333; font-size: 2rem; } p { line-height: 1.6; color: #666666; } .button { background-color: #007bff; border-radius: 4px; }"
+  },
+  {
+    "id": 89,
+    "title": "Lesson 89: JavaScript Basics",
+    "text": "Practice JavaScript: const greeting = 'Hello, World!'; let count = 0; function increment() { count++; return count; } const numbers = [1, 2, 3, 4, 5]; const doubled = numbers.map(n => n * 2); console.log(doubled); if (count > 10) { console.log('Count exceeded!'); }"
+  },
+  {
+    "id": 90,
+    "title": "Lesson 90: SQL Queries",
+    "text": "Practice SQL: SELECT * FROM users WHERE age > 18; INSERT INTO products (name, price) VALUES ('Laptop', 999.99); UPDATE orders SET status = 'shipped' WHERE id = 42; DELETE FROM sessions WHERE expired = true; SELECT COUNT(*) FROM customers GROUP BY country ORDER BY country ASC;"
+  },
+  {
+    "id": 91,
+    "title": "Lesson 91: Long Paragraph",
+    "text": "The art of typing is more than just pressing keys on a keyboard. It is a fundamental skill that enables communication, creativity, and productivity in the modern world. From writing emails and coding software to composing music and authoring books, the ability to type quickly and accurately empowers you to express your ideas without friction."
+  },
+  {
+    "id": 92,
+    "title": "Lesson 92: Narrative Writing",
+    "text": "The morning light filtered through the curtains as Mia sat at her desk, fingers poised over the keyboard. She had been working on her novel for three years, and today felt different. The words came easily, flowing like a river finding its course. She typed without pausing, without second-guessing, just letting the story breathe."
+  },
+  {
+    "id": 93,
+    "title": "Lesson 93: Descriptive Writing",
+    "text": "The ancient forest was alive with sound. Birdsong echoed through the towering canopy, where sunlight dappled the mossy ground below. The air smelled of damp earth and pine. A narrow path wound between gnarled roots, inviting the wanderer deeper into the emerald world that time seemed to have forgotten."
+  },
+  {
+    "id": 94,
+    "title": "Lesson 94: Dialogue Typing",
+    "text": "Practice dialogue punctuation: 'Are you coming to the party tonight?' asked Sarah. 'I haven't decided yet,' replied Tom. 'You should come,' she said. 'Everyone will be there.' Tom smiled. 'Alright, I'll think about it.' 'Great!' Sarah clapped her hands. 'It starts at eight.'"
+  },
+  {
+    "id": 95,
+    "title": "Lesson 95: Mixed Content",
+    "text": "Order #29847: 3x Widget A @ $12.99 = $38.97. Shipping: $5.00. Tax (8.5%): $3.73. Total: $47.70. Estimated delivery: May 3–5, 2026. For questions contact support@shop.com or call 1-800-555-0199 between 9:00 AM and 6:00 PM EST, Monday through Saturday."
+  },
+  {
+    "id": 96,
+    "title": "Lesson 96: Speed Burst",
+    "text": "the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog the quick brown fox jumps over the lazy dog"
+  },
+  {
+    "id": 97,
+    "title": "Lesson 97: Accuracy Focus",
+    "text": "Type slowly and perfectly: pneumonoultramicroscopicsilicovolcanoconiosis, floccinaucinihilipilification, antidisestablishmentarianism, supercalifragilisticexpialidocious, pseudopseudohypoparathyroidism, hippopotomonstrosesquippedaliophobia. Accuracy over speed — every character matters."
+  },
+  {
+    "id": 98,
+    "title": "Lesson 98: Endurance Typing",
+    "text": "Great typing is built on consistency and endurance. By completing 98 lessons, you have demonstrated exceptional commitment to this skill. Continue pushing your limits, aiming for fewer errors with each session. Your fingers have memorized the keyboard through repetition, and now it is time to refine that mastery."
+  },
+  {
+    "id": 99,
+    "title": "Lesson 99: Final Challenge",
+    "text": "This is the final practice before your last lesson. Push your typing speed to its absolute maximum while keeping errors to a minimum. Type every character deliberately yet swiftly. Trust your muscle memory. Breathe steadily. Let your fingers flow across the keyboard as naturally as speaking. You are almost there!"
+  },
+  {
+    "id": 100,
+    "title": "Lesson 100: TypeRush Master",
+    "text": "Congratulations! You have completed all 100 lessons of TypeRush! You have journeyed from home row basics to advanced typing across every domain — science, technology, literature, code, and beyond. Your speed and accuracy have grown tremendously. You are now a TypeRush Master. Keep typing every day and your skills will only continue to improve!"
+  }
+]
