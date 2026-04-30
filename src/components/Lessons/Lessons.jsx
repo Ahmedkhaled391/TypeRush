@@ -2,25 +2,26 @@ import greencircle from "../../assets/images/ball.png";
 import eclipse from "../../assets/images/eclipse.png";
 import locked from "../../assets/images/locked.png";
 import { useNavigate } from "react-router-dom";
+import { getUnlockedUpTo, isLessonPassed, getBestStars } from "../../services/lessonsService";
 
 const TOTAL_LESSONS = 100;
-const CURRENT_LESSON = 5;
 
-function getLessonStatus(lessonNumber) {
-  if (lessonNumber < CURRENT_LESSON) return "completed";
-  if (lessonNumber === CURRENT_LESSON) return "in-progress";
+function getLessonStatus(lessonNumber, unlockedUpTo) {
+  if (isLessonPassed(lessonNumber)) return "completed";
+  if (lessonNumber === unlockedUpTo) return "in-progress";
   return "locked";
 }
 
 function Lessons(){
-  const navigate = useNavigate()
-  const lessons = []
-  for(let i=1;i<=TOTAL_LESSONS;i++){
+  const navigate = useNavigate();
+  const unlockedUpTo = getUnlockedUpTo();
+  const lessons = [];
+  for(let i = 1; i <= TOTAL_LESSONS; i++){
     lessons.push({
       lessonNumber: i,
-      status: getLessonStatus(i)
-    })
-}
+      status: getLessonStatus(i, unlockedUpTo),
+    });
+  }
   const statusStyles = {
     completed:
       "bg-cta-button border border-mint-green text-light-mint-green hover:border-vibrant-mint-green",
@@ -78,7 +79,12 @@ function Lessons(){
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-light-mint-green text-[0.7rem] font-black text-cta-ink">
                       ✓
                     </span>
-                    <span className="text-[0.55rem] tracking-[-0.03em] text-light-mint-green">★★★</span>
+                    <span className="text-[0.55rem] tracking-[-0.03em] text-yellow-400">
+                      {(() => {
+                        const s = getBestStars(lesson.lessonNumber);
+                        return "★".repeat(s) + "☆".repeat(3 - s);
+                      })()}
+                    </span>
                   </span>
                 )}
 

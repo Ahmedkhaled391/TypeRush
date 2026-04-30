@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import VerifyEmail from './pages/VerifyEmail'
 import Multiplater from './pages/Multiplayer'
 import Practise from './components/Lessons/Practise'
+import Results from './pages/Results'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/lessons" element={<Lessons />} />
         <Route path="/lessons/:lessonNumber/practise" element={<Practise />} />
+        <Route path="/lessons/:lessonNumber/results" element={<Results />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

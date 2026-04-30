@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Stats from "./Stats";
-import { getLesson } from "../../services/lessonsService";
+import { getLesson, markLessonPassed } from "../../services/lessonsService";
 import {
     calculateWpm,
     calculateAccuracy,
@@ -16,16 +16,10 @@ function destructLesson(text) {
 }
 
 
-function isCorrectInput(userInput, lessonText) {
-    return userInput === lessonText;
-}
-
-
 function getCharStatus(index, typed, lessonText, mistakeCounts) {
     if (index >= typed.length) return "neutral";
     if (typed[index] === lessonText[index]) {
         return mistakeCounts[index] > 0 ? "corrected" : "correct";
-        // corrected means user made a mistake at this position but later corrected it (this will appear as yellow not green)
     }
     return "wrong";
 }
@@ -39,34 +33,34 @@ const STATUS_CLASSES = {
 
 function Practise() {
     const { lessonNumber } = useParams();
-    const [lessonText, setLessonText]       = useState("");
-    const [lessonTitle, setLessonTitle]     = useState("");
-    const [typed, setTyped]                 = useState("");
-    const [mistakeCounts, setMistakeCounts] = useState([]);
-    const [startedAt, setStartedAt] = useState(null);
-    const [wpmTickTime, setWpmTickTime] = useState(0);
+    const navigate = useNavigate();
+    const [lessonText, setLessonText]         = useState("");
+    const [lessonTitle, setLessonTitle]       = useState("");
+    const [wpmRequirement, setWpmRequirement] = useState(20);
+    const [accRequirement, setAccRequirement] = useState(75);
+    const [typed, setTyped]                   = useState("");
+    const [mistakeCounts, setMistakeCounts]   = useState([]);
+    const [startedAt, setStartedAt]           = useState(null);
+    const [wpmTickTime, setWpmTickTime]       = useState(0);
     const containerRef = useRef(null);
 
     const parsedLessonNumber = Number(lessonNumber);
-    const isValidLesson =
-        Number.isInteger(parsedLessonNumber) &&
-        parsedLessonNumber >= 1 &&
-        parsedLessonNumber <= MAX_LESSONS;
+    const isValidLesson =Number.isInteger(parsedLessonNumber) && parsedLessonNumber >= 1 && parsedLessonNumber <= MAX_LESSONS;
 
-    // Load lesson data and reset typing state whenever the lesson changes.
     useEffect(() => {
         if (!isValidLesson) return;
         const lesson = getLesson(parsedLessonNumber);
         if (!lesson) return;
         setLessonTitle(lesson.title);
         setLessonText(lesson.text);
+        setWpmRequirement(lesson.wpmRequirement ?? 20);
+        setAccRequirement(lesson.accuracyRequirement ?? 75);
         setTyped("");
         setMistakeCounts(new Array(lesson.text.length).fill(0));
         setStartedAt(null);
         setWpmTickTime(0);
     }, [isValidLesson, parsedLessonNumber]);
 
-    // Auto-focus the container so the user can start typing immediately.
     useEffect(() => {
         containerRef.current?.focus();
     }, [lessonText]);
@@ -83,14 +77,11 @@ function Practise() {
                 return;
             }
 
-            // Ignore modifier-only keys, Tab, Enter, etc.
             if (e.key.length !== 1 || e.ctrlKey || e.metaKey) return;
 
-            // Don't go past the end of the lesson.
             if (typed.length >= lessonText.length) return;
 
-            const pos         = typed.length;
-            const expectedChar = lessonText[pos];
+            const pos = typed.length;
 
             if (!startedAt) {
                 const now = Date.now();
@@ -98,8 +89,7 @@ function Practise() {
                 setWpmTickTime(now);
             }
 
-            // Record a mistake at this position if the key is wrong.
-            if (e.key !== expectedChar) {
+            if (e.key !== lessonText[pos]) {
                 setMistakeCounts((prev) => {
                     const next = [...prev];
                     next[pos] = next[pos] + 1;
@@ -107,28 +97,44 @@ function Practise() {
                 });
             }
 
-            setTyped((prev) => prev + e.key);
+            const newTyped = typed + e.key;
+            setTyped(newTyped);
+
+            
+            if (newTyped.length >= lessonText.length) {
+                const endTime = Date.now();
+                const elapsed = startedAt ? endTime - startedAt : 0;
+                const totalMistakesNow = mistakeCounts.reduce((s, c) => s + c, 0)
+                    + (e.key !== lessonText[pos] ? 1 : 0);
+                let correctNow = 0;
+                for (let i = 0; i < newTyped.length; i++) {
+                    if (newTyped[i] === lessonText[i]) correctNow++;
+                }
+                const finalWpm = calculateWpm(correctNow, elapsed);
+                const finalAccuracy = calculateAccuracy(newTyped.length, totalMistakesNow);
+                if (finalWpm >= wpmRequirement && finalAccuracy >= accRequirement) {
+                    markLessonPassed(parsedLessonNumber);
+                }
+                navigate(`/lessons/${parsedLessonNumber}/results`, {
+                    state: {
+                        lessonNumber: parsedLessonNumber,
+                        wpm: finalWpm,
+                        accuracy: finalAccuracy,
+                        elapsedMs: elapsed,
+                        wpmRequirement,
+                        accuracyRequirement: accRequirement,
+                    },
+                });
+            }
         },
-        [lessonText, typed, startedAt]
+        [lessonText, typed, startedAt, mistakeCounts, wpmRequirement, accRequirement, parsedLessonNumber, navigate]
     );
 
-    const completed = isCorrectInput(typed, lessonText);
-
     useEffect(() => {
-        if (!startedAt || completed) return;
-
-        const timer = setInterval(() => {
-            setWpmTickTime(Date.now());
-        }, 1500);
-
+        if (!startedAt) return;
+        const timer = setInterval(() => setWpmTickTime(Date.now()), 1500);
         return () => clearInterval(timer);
-    }, [startedAt, completed]);
-
-    useEffect(() => {
-        if (completed) {
-            setWpmTickTime(Date.now());
-        }
-    }, [completed]);
+    }, [startedAt]);
 
     if (!isValidLesson) {
         return (
@@ -164,23 +170,20 @@ function Practise() {
                 onKeyDown={handleKeyDown}
                 className="content container mx-auto mt-10 rounded-2xl bg-[#10141b] text-slate-500 p-10 outline-none cursor-text"
             >
-                {/* Character grid — each char shares borders with its neighbours */}
                 <div className="flex flex-wrap font-mono text-3xl md:text-4xl leading-relaxed">
                     {chars.map(({ char, index }) => {
-                        const status= getCharStatus(index, typed, lessonText, mistakeCounts);
-                        const isCursor= index===typed.length && !completed;
-                        const display= char === " " ? "\u00A0" : char;
+                        const status = getCharStatus(index, typed, lessonText, mistakeCounts);
+                        const isCursor = index === typed.length && typed.length < lessonText.length;
+                        const display = char === " " ? "\u00A0" : char;
 
                         return (
                             <span
                                 key={index}
                                 className={[
                                     "inline-block border border-slate-700",
-                                    
                                     index > 0 ? "-ml-px" : "",
                                     "px-1 py-0.5",
                                     STATUS_CLASSES[status],
-                                    
                                     isCursor ? "border-blue-400 border-2 z-10 relative" : "",
                                 ].join(" ")}
                             >
@@ -189,12 +192,6 @@ function Practise() {
                         );
                     })}
                 </div>
-
-                {completed && (
-                    <p className="mt-6 text-green-400 font-bold text-xl">
-                        Lesson Complete! 🎉
-                    </p>
-                )}
             </div>
         </>
     );

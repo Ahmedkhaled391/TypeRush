@@ -1,4 +1,7 @@
+import { getPassedCount } from "../../services/lessonsService";
+
 function Header() {
+    const passedCount = getPassedCount();
     return ( <>
       <header className="flex items-center flex-col md:flex-row justify-around gap-4 mt-10 mx-auto px-4  w-full">
         <div className="text flex flex-col text-center gap-2">
@@ -9,7 +12,7 @@ function Header() {
         <div className="modules bg-panel flex items-center flex-col p-4 ">
             <h1 className=" pargraph-muted-lg ">Modules Complete</h1>
             <div className="progress paragraph-muted-sm mt-1 ">
-                <span className="text-vibrant-mint-green p-3 text-3xl">42</span>/100
+                <span className="text-vibrant-mint-green p-3 text-3xl">{passedCount}</span>/100
             </div>
 
         </div>
