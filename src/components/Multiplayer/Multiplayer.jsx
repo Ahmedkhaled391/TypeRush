@@ -2,6 +2,9 @@ import { useRef, useState } from "react"
 import copyIcon from "../../assets/images/copyIcon.png"
 import arenaIcon from "../../assets/images/arenaIcon.png"
 import { Link } from "react-router-dom"
+
+
+
 function Multiplayer() {
     const [joinCode, setJoinCode] = useState(Array(6).fill(""))
     const inputRefs = useRef([])

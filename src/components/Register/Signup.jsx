@@ -1,17 +1,118 @@
 import nameicon from "../../assets/images/nameicon.png"
 import emailicon from "../../assets/images/emailicon.png"
 import passwordicon from "../../assets/images/passwordicon.png"
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ball from "../../assets/images/ball.png"
+import { isValidEmail, isValidPass, isValidUsername } from "../../utils/validators";
+
+
 
 
 function Signup() {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        pass: "",
+        confirmPass: ""
+    });
+    // i didn't want to make the validation inside the form state to not pop the err message before user even starts typing
+    const [nameError, setNameError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passError, setPassError] = useState("");
+    const [confirmPassError, setConfirmPassError] = useState("");
+
+    function getNameError(username) {
+        const value = username.trim();
+
+        if (!value) {
+            return "Username is required";
+        }
+        if (!isValidUsername(value)) {
+            return "Username must be >2 chars, and has no spaces or symbols except _ )";
+        }
+
+        return "";
+    }
+
+    function getEmailError(email) {
+        const value = email.trim();
+
+        if (!value) {
+            return "Email is required";
+        }
+        if (!isValidEmail(value)) {
+            return "Please enter a valid email address";
+        }
+
+        return "";
+    }
+    function getPassError(pass){
+       if(!pass){
+        return "Password is required"
+       }
+         if(!isValidPass(pass)){
+          return "Password must be at least 8 chars, and contain at least a number or a special character"
+         }
+         return ""
+    }
+    function getConfirmPassError(confirmPass){
+        if(!confirmPass){
+            return "Please confirm your password"
+        }
+        if(confirmPass !== formData.pass){
+            return "Passwords do not match"
+        }
+        return ""
+    }
+
+
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+
+        if (name === "name") {
+            setNameError(getNameError(value));
+        }
+        else if (name === "email") {
+            setEmailError(getEmailError(value));
+        }
+        else if(name === "pass"){
+            setPassError(getPassError(value))
+        }
+        else if(name === "confirmPass"){
+            setConfirmPassError(getConfirmPassError(value))
+        }
+    }
+
+    
+
+    const navigate = useNavigate();
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const nameErr = getNameError(formData.name);
+        const emailErr = getEmailError(formData.email);
+        const passErr = getPassError(formData.pass);
+        const confirmPassErr = getConfirmPassError(formData.confirmPass);
+
+        setNameError(nameErr);
+        setEmailError(emailErr);
+        setPassError(passErr);
+        setConfirmPassError(confirmPassErr);
+
+        if (nameErr || emailErr || passErr || confirmPassErr) return;
+
+        navigate("/verify-email");
+    }
+
     return (
         <>
             <div className="grid min-h-dvh place-items-center px-4 py-8 sm:px-6">
                 <div className="w-full max-w-md">
                     <form
-                        action=""
+                        onSubmit={handleSubmit}
                         className="flex flex-col rounded-3xl border border-white/5 bg-light-gray/95 px-6 py-8 shadow-[0_28px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:px-10 sm:py-10"
                     >
                         <div className="flex flex-col items-center text-center">
@@ -25,12 +126,13 @@ function Signup() {
 
                         <div className="mt-9 space-y-5">
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="name"  className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
                                     Username
                                 </label>
+                                {nameError && <div className="alert-name text-xs font-semibold text-red-400">{nameError}</div>}
                                 <div className="field relative text-white/35">
                                     <img src={nameicon} alt="username icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="name" type="text" placeholder=" Username" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="name" name="name" value={formData.name} onChange={handleChange} onBlur={() => setNameError(getNameError(formData.name))} type="text" placeholder=" Username" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
@@ -38,9 +140,10 @@ function Signup() {
                                 <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
                                     Email
                                 </label>
+                                {emailError && <div className="alert-mail text-xs font-semibold text-red-400">{emailError}</div>}
                                 <div className="field relative text-white/35">
                                     <img src={emailicon} alt="mail icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="email" type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="email" name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
@@ -48,9 +151,10 @@ function Signup() {
                                 <label htmlFor="password" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
                                     Password
                                 </label>
+                                {passError && <div className="alert-pass text-xs font-semibold text-red-400">{passError}</div>}
                                 <div className="field relative text-white/35">
                                     <img src={passwordicon} alt="password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="password" type="password" placeholder="Min. 8 chars" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="password" name="pass" value={formData.pass} onChange={handleChange} type="password" placeholder="Min. 8 chars" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
@@ -58,17 +162,18 @@ function Signup() {
                                 <label htmlFor="confirm-password" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
                                     Confirm Password
                                 </label>
+                                {confirmPassError && <div className="alert-confirm-pass text-xs font-semibold text-red-400">{confirmPassError}</div>}
                                 <div className="field relative text-white/35">
                                     <img src={nameicon} alt="confirm password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="confirm-password" type="password" placeholder="Re-enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="confirm-password" name="confirmPass" value={formData.confirmPass} onChange={handleChange} type="password" placeholder="Re-enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
                         </div>
 
                         <div className="mt-9 text-center">
-                            <Link to="/verify-email" className="inline-flex w-full items-center justify-center rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5">
+                            <button type="submit" className="inline-flex w-full items-center justify-center rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5">
                                 CREATE ACCOUNT
-                            </Link>
+                            </button>
                             <p className="paragraph-muted-sm mt-12 text-base">
                                 Already have an account?
                                 <Link to="/login" className="mx-1 font-semibold text-vibrant-mint-green">

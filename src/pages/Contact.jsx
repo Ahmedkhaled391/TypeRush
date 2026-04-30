@@ -1,6 +1,38 @@
-import Navbar from "../components/Navbar"   
+import Navbar from "../components/Navbar";
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
+import Swal from "sweetalert2";
+import { isValidEmail } from "../utils/validators";
 
 function Contact() {
+    const form = useRef(null);
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+        const email = String(formData.get("email") || "").trim();
+
+        if (!isValidEmail(email)) {
+            Swal.fire("Invalid email", "Please enter a valid email address.", "warning");
+            return;
+        }
+
+        emailjs
+            .sendForm("service_v3ys3i9", "template_v21wawn", form.current, {
+                publicKey: "kx0S0MVlBLS5w45Wr",
+            })
+            .then(
+                () => {
+                    Swal.fire("Sent!", "Your message has been sent successfully.", "success");
+                    e.target.reset();
+                },
+                (error) => {
+                    Swal.fire("Error!", "There was an error sending your message: " + error.text, "error");
+                },
+            );
+    };
+
     return (
         <>
             <Navbar />
@@ -35,14 +67,15 @@ function Contact() {
                         </div>
                     </div>
                 </div>
-
-                <form className="flex w-full flex-col gap-4 rounded-xl border border-slate-700 bg-slate-900/50 p-5 sm:p-6">
+                    {/* Form */}
+                <form ref={form} className="flex w-full flex-col gap-4 rounded-xl border border-slate-700 bg-slate-900/50 p-5 sm:p-6" onSubmit={sendEmail}>
                     <div className="flex flex-col gap-2">
                         <label htmlFor="name" className="text-sm font-medium text-slate-100">
                             Name
                         </label>
                         <input
                             id="name"
+                            name="name"
                             type="text"
                             className="rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-emerald-400"
                         />
@@ -53,6 +86,7 @@ function Contact() {
                         </label>
                         <input
                             id="email"
+                            name="email"
                             type="email"
                             className="rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-emerald-400"
                         />
@@ -63,6 +97,7 @@ function Contact() {
                         </label>
                         <input
                             id="subject"
+                            name="subject"
                             type="text"
                             className="rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-emerald-400"
                         />
