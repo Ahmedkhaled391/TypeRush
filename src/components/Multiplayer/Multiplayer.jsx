@@ -85,7 +85,7 @@ function Multiplayer() {
             <p className="paragraph-muted-sm max-w-[42ch] leading-7">Enter the 6-digit transmittion code provided by your host to secure your slot in the lobby.</p>
             <div className="w-full rounded-2xl border border-white/10 bg-linear-to-b from-dark-gray to-dark-navy-gray p-6 shadow-[0_16px_40px_rgba(0,0,0,0.45)]">
               <p className="text-center text-[0.68rem] uppercase tracking-[0.25em] text-brand-muted mb-2">Enter Code</p>
-              <div className="code py-3 text-center font-bold text-white">
+              <div className="code py-3 text-center font-bold text-slate-900 dark:text-white">
                 <div onPaste={handleCodePaste} className="flex items-center justify-center gap-4 bg-light-gray py-5 px-5">
                   {joinCode.map((digit, index) => (
                     <input
@@ -107,7 +107,7 @@ function Multiplayer() {
                 </div>
               </div>
                 <Link to="/lessons">
-              <div className="mt-2 flex w-full items-center justify-center rounded-xl bg-panel text-white p-4" >
+              <div className="mt-2 flex w-full items-center justify-center rounded-xl bg-panel text-slate-900 dark:text-white p-4" >
                 <img src={arenaIcon} alt="copy icon" className="h-4 w-4 mx-2" />
                 Join The Arena
               </div>

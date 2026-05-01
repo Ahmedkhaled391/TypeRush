@@ -66,8 +66,8 @@ function ProfileSetup() {
       return;
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-      setSubmitError("Image must be 2MB or smaller.");
+    if (file.size > 1 * 1024 * 1024) {
+      setSubmitError("Image must be 1MB or smaller.");
       return;
     }
 
@@ -135,7 +135,7 @@ function ProfileSetup() {
 
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col items-center gap-5">
           <div className="w-full">
-            <label htmlFor="profile-username" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+            <label htmlFor="profile-username" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
               Username
             </label>
             <input
@@ -144,7 +144,7 @@ function ProfileSetup() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Your username"
-              className="h-12 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]"
+              className="h-12 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]"
             />
           </div>
 
@@ -152,7 +152,7 @@ function ProfileSetup() {
             {previewImage ? (
               <img src={previewImage} alt="Profile preview" className="h-full w-full object-cover" />
             ) : (
-              <div className="grid h-full w-full place-items-center text-4xl text-slate-300">
+              <div className="grid h-full w-full place-items-center text-4xl text-slate-600 dark:text-slate-300">
                 <i className="fa-solid fa-user" aria-hidden="true" />
               </div>
             )}

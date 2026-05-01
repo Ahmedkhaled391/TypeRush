@@ -40,11 +40,11 @@ function CircularGauge({ value, max = 100, color, size = 160, label, subLabel, a
                     />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-2xl font-bold text-white">{value}</span>
-                    {subLabel && <span className="text-xs text-slate-400">{subLabel}</span>}
+                    <span className="text-2xl font-bold text-slate-900 dark:text-white">{value}</span>
+                    {subLabel && <span className="text-xs text-slate-500 dark:text-slate-400">{subLabel}</span>}
                 </div>
             </div>
-            <span className="text-sm text-slate-400 tracking-widest uppercase">{label}</span>
+            <span className="text-sm text-slate-500 dark:text-slate-400 tracking-widest uppercase">{label}</span>
         </div>
     );
 }
@@ -144,7 +144,7 @@ function LessonResults({
                 ))}
             </div>
 
-            <p className="text-center text-slate-400 text-sm mb-1 h-5">
+            <p className="text-center text-slate-500 dark:text-slate-400 text-sm mb-1 h-5">
                 {stars > 0 ? starLabels[stars] : ""}
             </p>
 
@@ -163,7 +163,7 @@ function LessonResults({
             ) : (
                 <div className="mb-10 text-center">
                     <p className="text-2xl font-extrabold text-rose-400 mb-2">Lesson Failed</p>
-                    <p className="text-slate-400 text-sm mb-3">You didn&apos;t meet the requirements to pass this lesson.</p>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm mb-3">You didn&apos;t meet the requirements to pass this lesson.</p>
                     <div className="inline-flex flex-col gap-1">
                         {failReasons.map((reason) => (
                             <span key={reason} className="text-xs bg-rose-900/40 border border-rose-700 text-rose-300 rounded-lg px-3 py-1">
@@ -191,13 +191,13 @@ function LessonResults({
 
                 <div className="flex flex-col items-center gap-2">
                     <div
-                        className="relative rounded-full flex flex-col items-center justify-center border-4 border-slate-700"
+                        className="relative rounded-full flex flex-col items-center justify-center border-4 border-slate-300 dark:border-slate-700"
                         style={{ width: 160, height: 160 }}
                     >
-                        <span className="text-3xl font-bold text-white">{duration}</span>
-                        <span className="text-xs text-slate-400">min : seconds</span>
+                        <span className="text-3xl font-bold text-slate-900 dark:text-white">{duration}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">min : seconds</span>
                     </div>
-                    <span className="text-sm text-slate-400 tracking-widest uppercase">duration</span>
+                    <span className="text-sm text-slate-500 dark:text-slate-400 tracking-widest uppercase">duration</span>
                 </div>
 
                 <div className="flex flex-col items-center gap-2">
@@ -224,7 +224,7 @@ function LessonResults({
             <div className="flex justify-center gap-4 mt-10">
                 {passed ? (
                     <>
-                        <button onClick={onRetry} className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition">
+                        <button onClick={onRetry} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
                             Try Again
                         </button>
                         {!isLast && (
@@ -235,16 +235,16 @@ function LessonResults({
                                 Next Lesson →
                             </button>
                         )}
-                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition">
+                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
                             All Lessons
                         </button>
                     </>
                 ) : (
                     <>
-                        <button onClick={onRetry} className="px-8 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold transition">
+                        <button onClick={onRetry} className="px-8 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-slate-900 dark:text-white font-bold transition">
                             Try Again
                         </button>
-                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition">
+                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
                             All Lessons
                         </button>
                     </>

@@ -112,6 +112,11 @@ export async function apiRequest(path, options = {}) {
     credentials: "include",
   });
 
+  if (response.status === 401) {
+    clearAccessToken();
+    clearCachedUser();
+  }
+
   return parseApiResponse(response);
 }
 

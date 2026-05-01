@@ -1,12 +1,11 @@
 import emailicon from "../../assets/images/emailicon.png"
-import passwordicon from "../../assets/images/passwordicon.png"
 import { Link, useNavigate } from "react-router-dom"
 import ball from "../../assets/images/ball.png"
 import { useState } from "react"
 import { loginUser } from "../../services/authService"
+import PasswordInput from "../ui/PasswordInput"
 
 function Login() {
-    const [showPassword, setShowPassword] = useState(false)
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -14,10 +13,6 @@ function Login() {
     const [submitError, setSubmitError] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
     const navigate = useNavigate()
-
-    const togglePasswordVisibility = () => {
-        setShowPassword((prev) => !prev)
-    }
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -61,31 +56,26 @@ function Login() {
 
                         <div className="mt-9 space-y-5">
                             <div className="mail flex flex-col gap-2.5">
-                                <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Email
                                 </label>
-                                <div className="field relative text-white/35">
+                                <div className="field relative text-slate-900 dark:text-white/35">
                                     <img src={emailicon} alt="mail icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="password" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="password" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Password
                                 </label>
-                                <div className="field relative text-white/35">
-                                    <img src={passwordicon} alt="password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="password" name="password" type={showPassword ? "text" : "password"} value={formData.password} onChange={handleChange} placeholder="Enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 pr-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
-                                    <button
-                                        type="button"
-                                        onClick={togglePasswordVisibility}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/55 transition hover:text-vibrant-mint-green"
-                                        aria-label={showPassword ? "Hide password" : "Show password"}
-                                    >
-                                        <i className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"} h-4 w-4`} />
-                                    </button>
-                                </div>
+                                <PasswordInput
+                                    id="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="Enter your password"
+                                />
                             </div>
                         </div>
 
@@ -104,7 +94,7 @@ function Login() {
                         </div>
                     </form>
 
-                    <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.72rem] font-medium uppercase tracking-[0.12em] text-white/25">
+                    <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.72rem] font-medium uppercase tracking-[0.12em] text-slate-900 dark:text-white/25">
                         <span className="flex items-center gap-2">
                             <img src={ball} alt="" aria-hidden="true" className="h-2 w-2" />
                             Secure Encryption

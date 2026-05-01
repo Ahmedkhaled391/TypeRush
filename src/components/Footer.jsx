@@ -3,7 +3,7 @@ import ball from "../assets/images/ball.png"
 
 function Footer() {
     return (
-        <footer className="min-h-92 bg-black px-6 py-8 text-center text-white lg:text-left">
+        <footer className="min-h-92 bg-slate-100 dark:bg-black px-6 py-8 text-center text-slate-900 dark:text-white lg:text-left">
             <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-8 lg:flex-row lg:items-start">
                 
                 <div className="mx-5 flex flex-col items-center gap-5 lg:items-start">

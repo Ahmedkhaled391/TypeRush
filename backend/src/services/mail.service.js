@@ -1,28 +1,24 @@
 import nodemailer from "nodemailer";
 import { env } from "../config/env.js";
 
-let transporter = null;
-
 function getTransporter() {
-  if (transporter) {
-    return transporter;
-  }
-
   if (!env.SMTP_HOST || !env.SMTP_PORT || !env.SMTP_USER || !env.SMTP_PASS) {
     return null;
   }
 
-  transporter = nodemailer.createTransport({
+  return nodemailer.createTransport({
     host: env.SMTP_HOST,
     port: env.SMTP_PORT,
-    secure: false,
+    secure: env.SMTP_PORT === 465,
+    requireTLS: true,
     auth: {
       user: env.SMTP_USER,
       pass: env.SMTP_PASS,
     },
+    tls: {
+      rejectUnauthorized: env.NODE_ENV === "production",
+    },
   });
-
-  return transporter;
 }
 
 export async function sendVerificationEmail({ email, username, code }) {

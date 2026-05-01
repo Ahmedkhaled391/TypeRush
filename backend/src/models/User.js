@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema(
     username: {  
       type: String,
       required: true,
+      unique: true,
       trim: true,
       minlength: 3,
       maxlength: 32,
@@ -22,15 +23,7 @@ const userSchema = new mongoose.Schema(
     },
     emailVerified: {
       type: Boolean,
-      default: false,
-    },
-    verificationCode: {
-      type: String,
-      default: null,
-    },
-    verificationCodeExpiresAt: {
-      type: Date,
-      default: null,
+      default: true,
     },
     refreshTokenHash: {
       type: String,

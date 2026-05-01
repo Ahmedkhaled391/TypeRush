@@ -26,8 +26,8 @@ function getCharStatus(index, typed, lessonText, mistakeCounts) {
 
 const STATUS_CLASSES = {
     neutral: "bg-transparent text-slate-500",
-    correct: "bg-emerald-600 text-white",
-    wrong: "bg-rose-600 text-white",
+    correct: "bg-emerald-600 text-slate-900 dark:text-white",
+    wrong: "bg-rose-600 text-slate-900 dark:text-white",
     corrected: "bg-amber-400 text-black",
 };
 
@@ -204,7 +204,7 @@ function Practise() {
                             <span
                                 key={index}
                                 className={[
-                                    "inline-block border border-slate-700",
+                                    "inline-block border border-slate-300 dark:border-slate-700",
                                     index > 0 ? "-ml-px" : "",
                                     "px-1 py-0.5",
                                     STATUS_CLASSES[status],

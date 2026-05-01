@@ -12,6 +12,13 @@ export function errorHandler(err, req, res, next) {
     return next(err);
   }
 
+  // MongoDB duplicate key error
+  if (err.code === 11000) {
+    const field = Object.keys(err.keyPattern || {})[0] || "field";
+    const label = field === "email" ? "Email" : field === "username" ? "Username" : field;
+    return res.status(409).json({ success: false, message: `${label} already in use` });
+  }
+
   const isTrustedError = err instanceof ApiError;
   const statusCode = isTrustedError ? err.statusCode : 500;
 

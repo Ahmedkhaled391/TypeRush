@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { getCachedUser, getCurrentUser, isAuthenticated, logoutUser, subscribeAuthChanges } from "../services/authService"
+import { useTheme } from "../context/ThemeContext"
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -8,6 +9,7 @@ function Navbar() {
     const [currentUser, setCurrentUser] = useState(() => getCachedUser())
     const navigate = useNavigate()
     const profileMenuRef = useRef(null)
+    const { theme, toggleTheme } = useTheme()
     const navItems = [
         { to: "/", label: "Home" },
         { to: "/Lessons", label: "Lessons" },
@@ -17,7 +19,7 @@ function Navbar() {
     ]
 
     const linkClass = ({ isActive }) =>
-        `transition-colors hover:text-emerald-300 ${isActive ? "text-emerald-400" : "text-slate-100"}`
+        `transition-colors hover:text-emerald-500 dark:hover:text-emerald-300 ${isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-700 dark:text-slate-100"}`
 
     useEffect(() => {
         let isMounted = true
@@ -90,29 +92,29 @@ function Navbar() {
             <button
                 type="button"
                 onClick={() => setProfileMenuOpen((prev) => !prev)}
-                className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-white"
+                className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-slate-300 bg-white dark:border-white/20 dark:bg-white"
                 aria-label="Open profile options"
             >
                 {profileImage ? (
                     <img src={profileImage} alt="Profile" className="h-full w-full object-cover" />
                 ) : (
-                    <i className="fa-solid fa-user text-slate-400" aria-hidden="true" />
+                    <i className="fa-solid fa-user text-slate-500 dark:text-slate-400" aria-hidden="true" />
                 )}
             </button>
 
             {profileMenuOpen && (
-                <div className="absolute right-0 z-30 mt-2 w-40 rounded-xl border border-slate-700 bg-slate-900 p-1.5 shadow-xl">
+                <div className="absolute right-0 z-30 mt-2 w-40 rounded-xl border border-slate-300 bg-slate-100 p-1.5 shadow-xl dark:border-slate-700 dark:bg-slate-900">
                     <button
                         type="button"
                         onClick={handleChangePhoto}
-                        className="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-200 transition hover:bg-slate-800"
+                        className="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-slate-200 dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Edit Profile
                     </button>
                     <button
                         type="button"
                         onClick={handleLogout}
-                        className="w-full rounded-lg px-3 py-2 text-left text-sm text-red-300 transition hover:bg-slate-800"
+                        className="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 transition hover:bg-slate-200 dark:text-red-300 dark:hover:bg-slate-800"
                     >
                         Logout
                     </button>
@@ -122,15 +124,15 @@ function Navbar() {
     )
 
     return (
-        <header className="border-b border-slate-700/70 bg-slate-950/85 backdrop-blur">
-            <nav className="mx-auto w-full max-w-6xl px-4 py-4 text-white sm:px-6">
+        <header className="border-b border-slate-300/80 bg-slate-100/90 backdrop-blur dark:border-slate-700/70 dark:bg-slate-950/85">
+            <nav className="mx-auto w-full max-w-6xl px-4 py-4 text-slate-900 dark:text-white sm:px-6">
                 <div className="grid items-center gap-4 md:grid-cols-[auto_1fr_auto]">
                     <div className="flex items-center gap-3">
                     <i className="fa-solid fa-keyboard text-xl text-emerald-400"></i>
                     <h2 className="text-lg font-semibold tracking-tight sm:text-xl">TypeRush</h2>
                     <button
                         type="button"
-                        className="ml-auto rounded-md border border-slate-700 px-3 py-1.5 text-sm text-slate-200 md:hidden"
+                        className="ml-auto rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700 md:hidden dark:border-slate-700 dark:text-slate-200"
                         onClick={() => setMenuOpen((prev) => !prev)}
                         aria-label="Toggle menu"
                     >
@@ -147,8 +149,8 @@ function Navbar() {
                 </div>
 
                 <div className="hidden items-center justify-end gap-4 md:flex">
-                    <button type="button" className="text-slate-200 transition-colors hover:text-emerald-300" aria-label="Toggle dark mode">
-                        <i className="fa-solid fa-moon text-xl"></i>
+                    <button type="button" onClick={toggleTheme} className="text-slate-700 transition-colors hover:text-emerald-500 dark:text-slate-200 dark:hover:text-emerald-300" aria-label="Toggle dark mode">
+                        <i className={`fa-solid ${theme === "dark" ? "fa-sun" : "fa-moon"} text-xl`}></i>
                     </button>
                     {isLoggedIn ? (
                         profileButton
@@ -164,15 +166,15 @@ function Navbar() {
                 </div>
                 </div>
 
-                <div className={`${menuOpen ? "mt-4 flex" : "hidden"} flex-col gap-4 border-t border-slate-800 pt-4 text-sm font-medium md:hidden`}>
+                <div className={`${menuOpen ? "mt-4 flex" : "hidden"} flex-col gap-4 border-t border-slate-300 pt-4 text-sm font-medium md:hidden dark:border-slate-800`}>
                     {navItems.map((item) => (
                         <NavLink key={item.to} className={linkClass} to={item.to} onClick={() => setMenuOpen(false)}>
                             {item.label}
                         </NavLink>
                     ))}
                     <div className="mt-1 flex items-center gap-4">
-                        <button type="button" className="text-slate-200 transition-colors hover:text-emerald-300" aria-label="Toggle dark mode">
-                            <i className="fa-solid fa-moon text-xl"></i>
+                        <button type="button" onClick={toggleTheme} className="text-slate-700 transition-colors hover:text-emerald-500 dark:text-slate-200 dark:hover:text-emerald-300" aria-label="Toggle dark mode">
+                            <i className={`fa-solid ${theme === "dark" ? "fa-sun" : "fa-moon"} text-xl`}></i>
                         </button>
                         {isLoggedIn ? (
                             <button

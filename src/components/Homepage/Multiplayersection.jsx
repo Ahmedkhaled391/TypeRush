@@ -13,10 +13,11 @@ function Multiplayer() {
             <div className="left md:col-span-8">
                 <div className="relative overflow-hidden rounded-xl flex items-center justify-items-center h-56 sm:h-72 md:h-96">
                     <img src={multiplayerArenaImage} className="w-full h-full block rounded-3xl brightness-50 object-cover" alt="Multipayer image" />
-                    <div className="absolute lg:left-5 lg:top-30 sm:top-20 left-5 top-5  flex flex-col gap-4 rounded-lg p-4">
+                    <div className="absolute inset-0 bg-black/20" aria-hidden="true" />
+                    <div className="absolute lg:left-5 lg:top-30 sm:top-20 left-5 top-5 flex flex-col gap-4 rounded-lg p-4">
                         <img src={multiplayerIcon} alt="Multiplayer icon" className="h-4 w-9" />
-                        <h1 className="text-3xl font-extrabold text-brand-heading">Challenge Your Friends</h1>
-                        <p className="paragraph-muted">Want to test your skills? Why don't you challenge your friends in a 1v1 game</p>
+                        <h1 className="text-3xl font-extrabold text-white">Challenge Your Friends</h1>
+                        <p className="max-w-xl text-base text-slate-200">Want to test your skills? Why don&apos;t you challenge your friends in a 1v1 game</p>
                     </div>
                 </div>
             </div>

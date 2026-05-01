@@ -57,21 +57,21 @@ function EmailVerification() {
 
                         <div className="mt-9 space-y-5">
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="verify-email" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="verify-email" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Email
                                 </label>
-                                <div className="field relative text-white/35">
-                                    <input id="verify-email" name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                <div className="field relative text-slate-900 dark:text-white/35">
+                                    <input id="verify-email" name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="verification-code" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="verification-code" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Verification Code
                                 </label>
-                                <div className="field relative text-white/35">
+                                <div className="field relative text-slate-900 dark:text-white/35">
                                     <img src={hash} alt="verification code icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="verification-code" name="code" value={formData.code} onChange={handleChange} type="text" placeholder="Enter 6-digit code" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="verification-code" name="code" value={formData.code} onChange={handleChange} type="text" placeholder="Enter 6-digit code" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@ function EmailVerification() {
                         </div>
                     </form>
 
-                    <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.72rem] font-medium uppercase tracking-[0.12em] text-white/25">
+                    <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.72rem] font-medium uppercase tracking-[0.12em] text-slate-900 dark:text-white/25">
                         <span className="flex items-center gap-2">
                             <img src={ball} alt="" aria-hidden="true" className="h-2 w-2" />
                             Secure Encryption

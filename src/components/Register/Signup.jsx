@@ -1,11 +1,11 @@
 import nameicon from "../../assets/images/nameicon.png"
 import emailicon from "../../assets/images/emailicon.png"
-import passwordicon from "../../assets/images/passwordicon.png"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ball from "../../assets/images/ball.png"
 import { isValidEmail, isValidPass, isValidUsername } from "../../utils/validators";
 import { signupUser } from "../../services/authService";
+import PasswordInput from "../ui/PasswordInput";
 
 function Signup() {
     const [formData, setFormData] = useState({
@@ -117,47 +117,53 @@ function Signup() {
 
                         <div className="mt-9 space-y-5">
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Username
                                 </label>
                                 {nameError && <div className="alert-name text-xs font-semibold text-red-400">{nameError}</div>}
-                                <div className="field relative text-white/35">
+                                <div className="field relative text-slate-900 dark:text-white/35">
                                     <img src={nameicon} alt="username icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="name" name="name" value={formData.name} onChange={handleChange} onBlur={() => setNameError(getNameError(formData.name))} type="text" placeholder=" Username" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="name" name="name" value={formData.name} onChange={handleChange} onBlur={() => setNameError(getNameError(formData.name))} type="text" placeholder=" Username" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
                             <div className="mail flex flex-col gap-2.5">
-                                <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Email
                                 </label>
                                 {emailError && <div className="alert-mail text-xs font-semibold text-red-400">{emailError}</div>}
-                                <div className="field relative text-white/35">
+                                <div className="field relative text-slate-900 dark:text-white/35">
                                     <img src={emailicon} alt="mail icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="email" name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="email" name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="password" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="password" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Password
                                 </label>
                                 {passError && <div className="alert-pass text-xs font-semibold text-red-400">{passError}</div>}
-                                <div className="field relative text-white/35">
-                                    <img src={passwordicon} alt="password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="password" name="pass" value={formData.pass} onChange={handleChange} type="password" placeholder="Min. 8 chars" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
-                                </div>
+                                <PasswordInput
+                                    id="password"
+                                    name="pass"
+                                    value={formData.pass}
+                                    onChange={handleChange}
+                                    placeholder="Min. 8 chars"
+                                />
                             </div>
 
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="confirm-password" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="confirm-password" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-900 dark:text-white/45">
                                     Confirm Password
                                 </label>
                                 {confirmPassError && <div className="alert-confirm-pass text-xs font-semibold text-red-400">{confirmPassError}</div>}
-                                <div className="field relative text-white/35">
-                                    <img src={nameicon} alt="confirm password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="confirm-password" name="confirmPass" value={formData.confirmPass} onChange={handleChange} type="password" placeholder="Re-enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
-                                </div>
+                                <PasswordInput
+                                    id="confirm-password"
+                                    name="confirmPass"
+                                    value={formData.confirmPass}
+                                    onChange={handleChange}
+                                    placeholder="Re-enter your password"
+                                />
                             </div>
                         </div>
 
@@ -175,7 +181,7 @@ function Signup() {
                         </div>
                     </form>
 
-                    <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.72rem] font-medium uppercase tracking-[0.12em] text-white/25">
+                    <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.72rem] font-medium uppercase tracking-[0.12em] text-slate-900 dark:text-white/25">
                         <span className="flex items-center gap-2">
                             <img src={ball} alt="" aria-hidden="true" className="h-2 w-2" />
                             Secure Encryption
