@@ -12,9 +12,18 @@ const app = express();
 
 app.set("trust proxy", 1);
 
+const devOrigin = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+
 app.use(
   cors({
-    origin: env.CLIENT_URL,
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
+      if (env.NODE_ENV === "development" && devOrigin.test(origin)) {
+        return callback(null, true);
+      }
+      if (origin === env.CLIENT_URL) return callback(null, true);
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );

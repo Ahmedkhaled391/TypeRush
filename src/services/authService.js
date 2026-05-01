@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001/api";
 const ACCESS_TOKEN_KEY = "typerush_access_token";
 const USER_CACHE_KEY = "typerush_user";
 const AUTH_CHANGED_EVENT = "typerush-auth-changed";
