@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { getBestStars } from "../../services/lessonsService";
 
 function calcStars(wpm, accuracy, wpmReq, accReq) {
     if (wpm < wpmReq || accuracy < accReq) return 0;
@@ -14,53 +14,21 @@ function calcStars(wpm, accuracy, wpmReq, accReq) {
     return 1;
 }
 
-const STARS_KEY = "typerush_stars";
-
-function getBestStars(lessonId) {
-    try {
-        const raw = localStorage.getItem(STARS_KEY);
-        const map = raw ? JSON.parse(raw) : {};
-        return map[lessonId] ?? 0;
-    } catch {
-        return 0;
-    }
-}
-
-function saveBestStars(lessonId, stars) {
-    try {
-        const raw = localStorage.getItem(STARS_KEY);
-        const map = raw ? JSON.parse(raw) : {};
-        if (stars > (map[lessonId] ?? 0)) {
-            map[lessonId] = stars;
-            localStorage.setItem(STARS_KEY, JSON.stringify(map));
-        }
-    } catch {
-        // ignore storage errors
-    }
-}
-
-
 function CircularGauge({ value, max = 100, color, size = 160, label, subLabel, animate }) {
     const R = 54;
     const circumference = 2 * Math.PI * R;
     const ratio = Math.min(1, Math.max(0, value / max));
-   
     const offset = animate ? circumference * (1 - ratio) : circumference;
 
     return (
         <div className="flex flex-col items-center gap-2">
             <div className="relative" style={{ width: size, height: size }}>
                 <svg width={size} height={size} viewBox="0 0 120 120">
-                    
+                    <circle cx="60" cy="60" r={R} fill="none" stroke="#1c2028" strokeWidth="10" />
                     <circle
-                        cx="60" cy="60" r={R}
-                        fill="none"
-                        stroke="#1c2028"
-                        strokeWidth="10"
-                    />
-                    
-                    <circle
-                        cx="60" cy="60" r={R}
+                        cx="60"
+                        cy="60"
+                        r={R}
                         fill="none"
                         stroke={color}
                         strokeWidth="10"
@@ -111,7 +79,6 @@ function Star({ earned, delay }) {
     );
 }
 
-
 function formatDuration(ms) {
     const totalSeconds = Math.floor(ms / 1000);
     const m = Math.floor(totalSeconds / 60);
@@ -119,39 +86,46 @@ function formatDuration(ms) {
     return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-
-function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement, accuracyRequirement, onRetry }) {
+function LessonResults({
+    lessonNumber,
+    wpm,
+    accuracy,
+    elapsedMs,
+    wpmRequirement,
+    accuracyRequirement,
+    onRetry,
+    stars: providedStars,
+    passed: providedPassed,
+    prevBestBeforeAttempt = 0,
+}) {
     const navigate = useNavigate();
-    const stars    = calcStars(wpm, accuracy, wpmRequirement, accuracyRequirement);
-    const passed   = stars > 0;
-    const isLast   = lessonNumber >= 100;
+    const stars = Number.isFinite(providedStars) && providedStars > 0
+        ? providedStars
+        : calcStars(wpm, accuracy, wpmRequirement, accuracyRequirement);
+    const passed = typeof providedPassed === "boolean" ? providedPassed : stars > 0;
+    const isLast = lessonNumber >= 100;
     const duration = formatDuration(elapsedMs);
 
-    
-    const prevBest = getBestStars(lessonNumber);
-    const isNewBest = stars > prevBest;
+    const prevBest = Math.max(prevBestBeforeAttempt, getBestStars(lessonNumber));
+    const isNewBest = stars > prevBestBeforeAttempt;
 
-    useEffect(() => {
-        saveBestStars(lessonNumber, stars);
-    }, [lessonNumber, stars]);
-
-   
     const [panelVisible, setPanelVisible] = useState(false);
-    
     const [gaugesAnimate, setGaugesAnimate] = useState(false);
 
     useEffect(() => {
         const t1 = setTimeout(() => setPanelVisible(true), 50);
         const t2 = setTimeout(() => setGaugesAnimate(true), 450);
-        return () => { clearTimeout(t1); clearTimeout(t2); };
+        return () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+        };
     }, []);
 
     const starLabels = ["", "Keep at it!", "Good Job!", "Excellent!"];
-
-    // Tell the user which reqs are not met
     const failReasons = [];
+
     if (!passed) {
-        if (wpm < wpmRequirement)      failReasons.push(`Speed: ${wpm} wpm (need ${wpmRequirement})`);
+        if (wpm < wpmRequirement) failReasons.push(`Speed: ${wpm} wpm (need ${wpmRequirement})`);
         if (accuracy < accuracyRequirement) failReasons.push(`Accuracy: ${accuracy}% (need ${accuracyRequirement}%)`);
     }
 
@@ -164,19 +138,16 @@ function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement,
                 transition: "opacity 0.5s ease, transform 0.5s ease",
             }}
         >
-            
             <div className="flex justify-center gap-3 mb-3">
                 {[1, 2, 3].map((n) => (
                     <Star key={n} earned={n <= stars} delay={300 + n * 180} />
                 ))}
             </div>
 
-            
             <p className="text-center text-slate-400 text-sm mb-1 h-5">
                 {stars > 0 ? starLabels[stars] : ""}
             </p>
 
-            
             {isNewBest && stars > 0 ? (
                 <p className="text-center text-xs font-bold text-amber-400 tracking-widest uppercase mb-4">
                     ★ New Best Score
@@ -185,7 +156,6 @@ function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement,
                 <div className="mb-4" />
             )}
 
-            
             {passed ? (
                 <p className="text-center text-xl font-bold mb-10 text-vibrant-mint-green">
                     {isLast ? "You are a TypeRush Master!" : "Lesson Passed! Next lesson unlocked."}
@@ -205,7 +175,6 @@ function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement,
             )}
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-12">
-                
                 <div className="flex flex-col items-center gap-2">
                     <CircularGauge
                         value={accuracy}
@@ -220,7 +189,6 @@ function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement,
                     </span>
                 </div>
 
-               
                 <div className="flex flex-col items-center gap-2">
                     <div
                         className="relative rounded-full flex flex-col items-center justify-center border-4 border-slate-700"
@@ -232,7 +200,6 @@ function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement,
                     <span className="text-sm text-slate-400 tracking-widest uppercase">duration</span>
                 </div>
 
-               
                 <div className="flex flex-col items-center gap-2">
                     <CircularGauge
                         value={wpm}
@@ -248,21 +215,16 @@ function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement,
                 </div>
             </div>
 
-           
             {prevBest > 0 && (
                 <p className="text-center text-xs text-slate-500 mt-6">
                     Previous best: {"★".repeat(prevBest)}{"☆".repeat(3 - prevBest)}
                 </p>
             )}
 
-           
             <div className="flex justify-center gap-4 mt-10">
                 {passed ? (
                     <>
-                        <button
-                            onClick={onRetry}
-                            className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition"
-                        >
+                        <button onClick={onRetry} className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition">
                             Try Again
                         </button>
                         {!isLast && (
@@ -273,25 +235,16 @@ function LessonResults({ lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement,
                                 Next Lesson →
                             </button>
                         )}
-                        <button
-                            onClick={() => navigate("/lessons")}
-                            className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition"
-                        >
+                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition">
                             All Lessons
                         </button>
                     </>
                 ) : (
                     <>
-                        <button
-                            onClick={onRetry}
-                            className="px-8 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold transition"
-                        >
+                        <button onClick={onRetry} className="px-8 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold transition">
                             Try Again
                         </button>
-                        <button
-                            onClick={() => navigate("/lessons")}
-                            className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition"
-                        >
+                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-white font-semibold hover:bg-slate-600 transition">
                             All Lessons
                         </button>
                     </>

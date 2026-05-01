@@ -11,7 +11,7 @@ function Results() {
         return null;
     }
 
-    const { lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement, accuracyRequirement } = state;
+    const { lessonNumber, wpm, accuracy, elapsedMs, wpmRequirement, accuracyRequirement, stars, passed, prevBestBeforeAttempt } = state;
 
     function handleRetry() {
         navigate(`/lessons/${lessonNumber}/practise`);
@@ -27,6 +27,9 @@ function Results() {
                 elapsedMs={elapsedMs}
                 wpmRequirement={wpmRequirement}
                 accuracyRequirement={accuracyRequirement}
+                stars={stars}
+                passed={passed}
+                prevBestBeforeAttempt={prevBestBeforeAttempt}
                 onRetry={handleRetry}
             />
         </>

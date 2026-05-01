@@ -1,14 +1,45 @@
 import emailicon from "../../assets/images/emailicon.png"
 import passwordicon from "../../assets/images/passwordicon.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import ball from "../../assets/images/ball.png"
 import { useState } from "react"
+import { loginUser } from "../../services/authService"
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false)
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    })
+    const [submitError, setSubmitError] = useState("")
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const navigate = useNavigate()
 
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev)
+    }
+
+    function handleChange(e) {
+        const { name, value } = e.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        setSubmitError("")
+
+        try {
+            setIsSubmitting(true)
+            await loginUser({
+                email: formData.email.trim(),
+                password: formData.password,
+            })
+            navigate("/")
+        } catch (error) {
+            setSubmitError(error.message || "Login failed. Please try again.")
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -16,7 +47,7 @@ function Login() {
             <div className="grid min-h-dvh place-items-center px-4 py-8 sm:px-6">
                 <div className="w-full max-w-md">
                     <form
-                        action=""
+                        onSubmit={handleSubmit}
                         className="flex flex-col rounded-3xl border border-white/5 bg-light-gray/95 px-6 py-8 shadow-[0_28px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:px-10 sm:py-10"
                     >
                         <div className="flex flex-col items-center text-center">
@@ -35,7 +66,7 @@ function Login() {
                                 </label>
                                 <div className="field relative text-white/35">
                                     <img src={emailicon} alt="mail icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="email" type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
                                 </div>
                             </div>
 
@@ -45,7 +76,7 @@ function Login() {
                                 </label>
                                 <div className="field relative text-white/35">
                                     <img src={passwordicon} alt="password icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="password" type={showPassword ? "text" : "password"} placeholder="Enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 pr-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="password" name="password" type={showPassword ? "text" : "password"} value={formData.password} onChange={handleChange} placeholder="Enter your password" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 pr-11 text-sm text-white outline-none transition placeholder:text-white/20 focus:border-white/10 focus:bg-[#232933]" />
                                     <button
                                         type="button"
                                         onClick={togglePasswordVisibility}
@@ -59,8 +90,9 @@ function Login() {
                         </div>
 
                         <div className="mt-9 text-center">
-                            <button className="w-full rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5">
-                                LOGIN
+                            {submitError && <p className="mb-3 text-xs font-semibold text-red-400">{submitError}</p>}
+                            <button disabled={isSubmitting} className="w-full rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70">
+                                {isSubmitting ? "LOGGING IN..." : "LOGIN"}
                             </button>
 
                             <p className="paragraph-muted-sm mt-3 text-base">

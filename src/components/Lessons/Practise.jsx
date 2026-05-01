@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Stats from "./Stats";
-import { getLesson, markLessonPassed } from "../../services/lessonsService";
+import { getBestStars, getLesson, submitLessonAttempt } from "../../services/lessonsService";
 import {
     calculateWpm,
     calculateAccuracy,
@@ -112,19 +112,43 @@ function Practise() {
                 }
                 const finalWpm = calculateWpm(correctNow, elapsed);
                 const finalAccuracy = calculateAccuracy(newTyped.length, totalMistakesNow);
-                if (finalWpm >= wpmRequirement && finalAccuracy >= accRequirement) {
-                    markLessonPassed(parsedLessonNumber);
-                }
-                navigate(`/lessons/${parsedLessonNumber}/results`, {
-                    state: {
-                        lessonNumber: parsedLessonNumber,
-                        wpm: finalWpm,
-                        accuracy: finalAccuracy,
-                        elapsedMs: elapsed,
-                        wpmRequirement,
-                        accuracyRequirement: accRequirement,
-                    },
-                });
+                const prevBestBeforeAttempt = getBestStars(parsedLessonNumber);
+
+                const finishAttempt = async () => {
+                    let stars = 0;
+                    let passed = false;
+
+                    try {
+                        const submission = await submitLessonAttempt({
+                            lessonId: parsedLessonNumber,
+                            wpm: finalWpm,
+                            accuracy: finalAccuracy,
+                            elapsedMs: elapsed,
+                            wpmRequirement,
+                            accuracyRequirement: accRequirement,
+                        });
+                        stars = submission.stars;
+                        passed = submission.passed;
+                    } catch {
+                        // If API submission fails, keep UX flow and show result page.
+                    }
+
+                    navigate(`/lessons/${parsedLessonNumber}/results`, {
+                        state: {
+                            lessonNumber: parsedLessonNumber,
+                            wpm: finalWpm,
+                            accuracy: finalAccuracy,
+                            elapsedMs: elapsed,
+                            wpmRequirement,
+                            accuracyRequirement: accRequirement,
+                            stars,
+                            passed,
+                            prevBestBeforeAttempt,
+                        },
+                    });
+                };
+
+                finishAttempt();
             }
         },
         [lessonText, typed, startedAt, mistakeCounts, wpmRequirement, accRequirement, parsedLessonNumber, navigate]

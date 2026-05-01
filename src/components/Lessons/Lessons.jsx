@@ -1,27 +1,46 @@
 import greencircle from "../../assets/images/ball.png";
 import eclipse from "../../assets/images/eclipse.png";
 import locked from "../../assets/images/locked.png";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUnlockedUpTo, isLessonPassed, getBestStars } from "../../services/lessonsService";
+import { loadProgressSnapshot } from "../../services/lessonsService";
 
 const TOTAL_LESSONS = 100;
 
-function getLessonStatus(lessonNumber, unlockedUpTo) {
-  if (isLessonPassed(lessonNumber)) return "completed";
-  if (lessonNumber === unlockedUpTo) return "in-progress";
-  return "locked";
-}
-
 function Lessons(){
   const navigate = useNavigate();
-  const unlockedUpTo = getUnlockedUpTo();
-  const lessons = [];
-  for(let i = 1; i <= TOTAL_LESSONS; i++){
-    lessons.push({
-      lessonNumber: i,
-      status: getLessonStatus(i, unlockedUpTo),
-    });
-  }
+  const [unlockedUpTo, setUnlockedUpTo] = useState(1);
+  const [lessonMeta, setLessonMeta] = useState({});
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadProgress() {
+      const snapshot = await loadProgressSnapshot();
+      if (!isMounted) return;
+      setUnlockedUpTo(snapshot.unlockedUpTo);
+      setLessonMeta(snapshot.lessonMeta);
+    }
+
+    loadProgress();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const lessons = useMemo(() => {
+    const list = [];
+    for (let i = 1; i <= TOTAL_LESSONS; i += 1) {
+      const passed = Boolean(lessonMeta[i]?.passed);
+      const status = passed ? "completed" : i === unlockedUpTo ? "in-progress" : "locked";
+      list.push({
+        lessonNumber: i,
+        status,
+        stars: lessonMeta[i]?.bestStars ?? 0,
+      });
+    }
+    return list;
+  }, [lessonMeta, unlockedUpTo]);
   const statusStyles = {
     completed:
       "bg-cta-button border border-mint-green text-light-mint-green hover:border-vibrant-mint-green",
@@ -80,10 +99,7 @@ function Lessons(){
                       ✓
                     </span>
                     <span className="text-[0.55rem] tracking-[-0.03em] text-yellow-400">
-                      {(() => {
-                        const s = getBestStars(lesson.lessonNumber);
-                        return "★".repeat(s) + "☆".repeat(3 - s);
-                      })()}
+                      {"★".repeat(lesson.stars) + "☆".repeat(3 - lesson.stars)}
                     </span>
                   </span>
                 )}

@@ -5,29 +5,28 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ball from "../../assets/images/ball.png"
 import { isValidEmail, isValidPass, isValidUsername } from "../../utils/validators";
-
-
-
+import { signupUser } from "../../services/authService";
 
 function Signup() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         pass: "",
-        confirmPass: ""
+        confirmPass: "",
     });
-    // i didn't want to make the validation inside the form state to not pop the err message before user even starts typing
     const [nameError, setNameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passError, setPassError] = useState("");
     const [confirmPassError, setConfirmPassError] = useState("");
+    const [submitError, setSubmitError] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const navigate = useNavigate();
 
     function getNameError(username) {
         const value = username.trim();
 
-        if (!value) {
-            return "Username is required";
-        }
+        if (!value) return "Username is required";
         if (!isValidUsername(value)) {
             return "Username must be >2 chars, and has no spaces or symbols except _ )";
         }
@@ -38,58 +37,37 @@ function Signup() {
     function getEmailError(email) {
         const value = email.trim();
 
-        if (!value) {
-            return "Email is required";
-        }
-        if (!isValidEmail(value)) {
-            return "Please enter a valid email address";
-        }
+        if (!value) return "Email is required";
+        if (!isValidEmail(value)) return "Please enter a valid email address";
 
         return "";
     }
-    function getPassError(pass){
-       if(!pass){
-        return "Password is required"
-       }
-         if(!isValidPass(pass)){
-          return "Password must be at least 8 chars, and contain at least a number or a special character"
-         }
-         return ""
-    }
-    function getConfirmPassError(confirmPass){
-        if(!confirmPass){
-            return "Please confirm your password"
+
+    function getPassError(pass) {
+        if (!pass) return "Password is required";
+        if (!isValidPass(pass)) {
+            return "Password must be at least 8 chars, and contain at least a number or a special character";
         }
-        if(confirmPass !== formData.pass){
-            return "Passwords do not match"
-        }
-        return ""
+        return "";
     }
 
-
+    function getConfirmPassError(confirmPass) {
+        if (!confirmPass) return "Please confirm your password";
+        if (confirmPass !== formData.pass) return "Passwords do not match";
+        return "";
+    }
 
     function handleChange(e) {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
 
-        if (name === "name") {
-            setNameError(getNameError(value));
-        }
-        else if (name === "email") {
-            setEmailError(getEmailError(value));
-        }
-        else if(name === "pass"){
-            setPassError(getPassError(value))
-        }
-        else if(name === "confirmPass"){
-            setConfirmPassError(getConfirmPassError(value))
-        }
+        if (name === "name") setNameError(getNameError(value));
+        if (name === "email") setEmailError(getEmailError(value));
+        if (name === "pass") setPassError(getPassError(value));
+        if (name === "confirmPass") setConfirmPassError(getConfirmPassError(value));
     }
 
-    
-
-    const navigate = useNavigate();
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
         const nameErr = getNameError(formData.name);
@@ -101,10 +79,23 @@ function Signup() {
         setEmailError(emailErr);
         setPassError(passErr);
         setConfirmPassError(confirmPassErr);
+        setSubmitError("");
 
         if (nameErr || emailErr || passErr || confirmPassErr) return;
 
-        navigate("/verify-email");
+        try {
+            setIsSubmitting(true);
+            await signupUser({
+                username: formData.name.trim(),
+                email: formData.email.trim(),
+                password: formData.pass,
+            });
+            navigate("/verify-email", { state: { email: formData.email.trim() } });
+        } catch (error) {
+            setSubmitError(error.message || "Signup failed. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     return (
@@ -126,7 +117,7 @@ function Signup() {
 
                         <div className="mt-9 space-y-5">
                             <div className="name flex flex-col gap-2.5">
-                                <label htmlFor="name"  className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                                <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
                                     Username
                                 </label>
                                 {nameError && <div className="alert-name text-xs font-semibold text-red-400">{nameError}</div>}
@@ -171,8 +162,9 @@ function Signup() {
                         </div>
 
                         <div className="mt-9 text-center">
-                            <button type="submit" className="inline-flex w-full items-center justify-center rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5">
-                                CREATE ACCOUNT
+                            {submitError && <p className="mb-3 text-xs font-semibold text-red-400">{submitError}</p>}
+                            <button type="submit" disabled={isSubmitting} className="inline-flex w-full items-center justify-center rounded-2xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-black tracking-tight text-dark-mint-green shadow-[0_16px_35px_rgba(0,252,154,0.24)] transition-transform duration-200 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70">
+                                {isSubmitting ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
                             </button>
                             <p className="paragraph-muted-sm mt-12 text-base">
                                 Already have an account?
