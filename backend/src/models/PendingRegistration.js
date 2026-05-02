@@ -6,7 +6,7 @@ const pendingRegistrationSchema = new mongoose.Schema({
   passwordHash: { type: String, required: true },
   verificationCode: { type: String, required: true },
   verificationCodeExpiresAt: { type: Date, required: true },
-  // MongoDB TTL index: document is auto-deleted 10 minutes after creation
+  
   createdAt: { type: Date, default: Date.now, expires: 600 },
 });
 

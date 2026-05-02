@@ -6,8 +6,36 @@ import { Link } from "react-router-dom"
 
 
 function Multiplayer() {
+    const hostCode = "482917"
     const [joinCode, setJoinCode] = useState(Array(6).fill(""))
+    const [copyLabel, setCopyLabel] = useState("Copy & Start")
     const inputRefs = useRef([])
+
+    const handleCopyCode = async () => {
+      try {
+        if (navigator?.clipboard?.writeText) {
+          await navigator.clipboard.writeText(hostCode)
+        } else {
+          const textArea = document.createElement("textarea")
+          textArea.value = hostCode
+          textArea.setAttribute("readonly", "")
+          textArea.style.position = "absolute"
+          textArea.style.left = "-9999px"
+          document.body.appendChild(textArea)
+          textArea.select()
+          document.execCommand("copy")
+          document.body.removeChild(textArea)
+        }
+
+        setCopyLabel("Copied")
+      } catch {
+        setCopyLabel("Copy failed")
+      } finally {
+        setTimeout(() => {
+          setCopyLabel("Copy & Start")
+        }, 1500)
+      }
+    }
 
     const handleDigitChange = (index, value) => {
       const lastChar = value.slice(-1)
@@ -72,9 +100,13 @@ function Multiplayer() {
               <div className="code py-3 text-center text-6xl font-bold tracking-[0.12em] text-vibrant-mint-green">
                 482 917
               </div>
-              <button className="mt-2 flex w-full items-center justify-center rounded-xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-extrabold tracking-tight text-dark-mint-green transition hover:brightness-105">
+              <button
+                type="button"
+                onClick={handleCopyCode}
+                className="mt-2 flex w-full items-center justify-center rounded-xl bg-linear-to-r from-light-mint-green to-vibrant-mint-green p-4 text-base font-extrabold tracking-tight text-dark-mint-green transition hover:brightness-105"
+              >
                 <img src={copyIcon} alt="copy icon" className="h-4 w-4 mr-2" />
-                Copy & Start
+                {copyLabel}
               </button>
 
             </div>

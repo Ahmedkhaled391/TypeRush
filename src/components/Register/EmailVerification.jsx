@@ -61,7 +61,7 @@ function EmailVerification() {
                                     Email
                                 </label>
                                 <div className="field relative text-slate-900 dark:text-white/35">
-                                    <input id="verify-email" name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="verify-email" name="email" value={formData.email} onChange={handleChange} type="email" placeholder="email@example.com" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 dark:focus:bg-[#232933]" />
                                 </div>
                             </div>
 
@@ -71,7 +71,7 @@ function EmailVerification() {
                                 </label>
                                 <div className="field relative text-slate-900 dark:text-white/35">
                                     <img src={hash} alt="verification code icon" className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 opacity-75" />
-                                    <input id="verification-code" name="code" value={formData.code} onChange={handleChange} type="text" placeholder="Enter 6-digit code" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]" />
+                                    <input id="verification-code" name="code" value={formData.code} onChange={handleChange} type="text" placeholder="Enter 6-digit code" className="h-13 w-full rounded-xl border border-white/4 bg-panel px-4 pl-11 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 dark:focus:bg-[#232933]" />
                                 </div>
                             </div>
                         </div>

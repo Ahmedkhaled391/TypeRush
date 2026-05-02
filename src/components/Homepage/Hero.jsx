@@ -1,4 +1,5 @@
 import keyboardImage from "../../assets/images/Professional mechanical keyboard.png"
+import { Link } from "react-router-dom"
 
 
 function Hero() {
@@ -11,8 +12,8 @@ function Hero() {
                 <p className="mx-auto mt-4 max-w-2xl paragraph-muted-responsive">Experience the ultimate typing experience right now</p>
 
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                    <button className="rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-slate-950">Start Typing</button>
-                    <button className="rounded-xl border border-blue-400 px-5 py-3 font-semibold text-blue-300">See Stats</button>
+                    <Link to="/lessons" className="rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-slate-950">Start Typing</Link>
+                    <Link to="/stats" className="rounded-xl border border-blue-400 px-5 py-3 font-semibold text-blue-300">See Stats</Link>
                 </div>
 
                 <div className="mt-10 grid w-full grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">

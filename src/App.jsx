@@ -10,6 +10,7 @@ import Multiplater from './pages/Multiplayer'
 import Practise from './components/Lessons/Practise'
 import Results from './pages/Results'
 import ProfileSetup from './pages/ProfileSetup'
+import Stats from './pages/Stats'
 import { isAuthenticated, subscribeAuthChanges } from './services/authService'
 
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/profile-setup" element={requireAuth(<ProfileSetup />)} />
         <Route path="/challenge" element={requireAuth(<Multiplater />)} />
+        <Route path="/stats" element={requireAuth(<Stats />)} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

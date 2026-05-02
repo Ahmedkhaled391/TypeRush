@@ -144,7 +144,7 @@ function ProfileSetup() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Your username"
-              className="h-12 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 focus:bg-[#232933]"
+              className="h-12 w-full rounded-xl border border-white/4 bg-panel px-4 text-sm text-slate-900 dark:text-white outline-none transition placeholder:text-slate-500 dark:placeholder:text-slate-300 focus:border-white/10 dark:focus:bg-[#232933]"
             />
           </div>
 
