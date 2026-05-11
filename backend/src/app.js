@@ -40,6 +40,14 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "TypeRush backend is running",
+    health: "/api/health",
+  });
+});
+
 app.use("/api/auth", authLimiter);
 app.use("/api", apiRouter);
 
