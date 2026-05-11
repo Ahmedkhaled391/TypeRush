@@ -95,11 +95,6 @@ function ProfileSetup() {
       return;
     }
 
-    if (!previewImage && !initialImage) {
-      setSubmitError("Please choose your profile image first.");
-      return;
-    }
-
     const payload = {};
     if (normalizedUsername !== initialUsername) {
       payload.username = normalizedUsername;
@@ -130,7 +125,7 @@ function ProfileSetup() {
       <div className="w-full max-w-md rounded-3xl border border-white/5 bg-light-gray/95 px-6 py-8 shadow-[0_28px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:px-10 sm:py-10">
         <div className="text-center">
           <h1 className="text-4xl font-black tracking-tight text-vibrant-mint-green sm:text-5xl">TypeRush</h1>
-          <p className="paragraph-muted-sm mt-4 text-[0.78rem] font-medium tracking-[0.22em]">SET USERNAME AND PROFILE PHOTO</p>
+          <p className="paragraph-muted-sm mt-4 text-[0.78rem] font-medium tracking-[0.22em]">SET USERNAME AND PROFILE PHOTO (Optional)</p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col items-center gap-5">

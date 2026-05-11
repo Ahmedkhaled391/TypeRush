@@ -103,18 +103,18 @@ function Navbar() {
             </button>
 
             {profileMenuOpen && (
-                <div className="absolute right-0 z-30 mt-2 w-40 rounded-xl border border-slate-300 bg-slate-100 p-1.5 shadow-xl dark:border-slate-700 dark:bg-slate-900">
+                <div className="absolute left-1/2 z-30 mt-2 w-40 -translate-x-1/2 rounded-xl border border-slate-300 bg-slate-100 p-1.5 shadow-xl md:left-auto md:translate-x-0 md:right-0 dark:border-slate-700 dark:bg-slate-900">
                     <button
                         type="button"
                         onClick={handleChangePhoto}
-                        className="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-slate-200 dark:text-slate-200 dark:hover:bg-slate-800"
+                        className="w-full rounded-lg px-3 py-2 text-center text-sm text-slate-700 transition hover:bg-slate-200 dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                         Edit Profile
                     </button>
                     <button
                         type="button"
                         onClick={handleLogout}
-                        className="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 transition hover:bg-slate-200 dark:text-red-300 dark:hover:bg-slate-800"
+                        className="w-full rounded-lg px-3 py-2 text-center text-sm text-red-600 transition hover:bg-slate-200 dark:text-red-300 dark:hover:bg-slate-800"
                     >
                         Logout
                     </button>
@@ -166,13 +166,13 @@ function Navbar() {
                 </div>
                 </div>
 
-                <div className={`${menuOpen ? "mt-4 flex" : "hidden"} flex-col gap-4 border-t border-slate-300 pt-4 text-sm font-medium md:hidden dark:border-slate-800`}>
+                <div className={`${menuOpen ? "mt-4 flex" : "hidden"} flex-col items-center gap-4 border-t border-slate-300 pt-4 text-sm font-medium md:hidden dark:border-slate-800`}>
                     {navItems.map((item) => (
-                        <NavLink key={item.to} className={linkClass} to={item.to} onClick={() => setMenuOpen(false)}>
+                        <NavLink key={item.to} className={({ isActive }) => `${linkClass({ isActive })} text-center`} to={item.to} onClick={() => setMenuOpen(false)}>
                             {item.label}
                         </NavLink>
                     ))}
-                    <div className="mt-1 flex items-center gap-4">
+                    <div className="mt-1 flex flex-wrap items-center justify-center gap-4">
                         <button type="button" onClick={toggleTheme} className="text-slate-700 transition-colors hover:text-emerald-500 dark:text-slate-200 dark:hover:text-emerald-300" aria-label="Toggle dark mode">
                             <i className={`fa-solid ${theme === "dark" ? "fa-sun" : "fa-moon"} text-xl`}></i>
                         </button>
