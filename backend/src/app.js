@@ -13,6 +13,8 @@ const app = express();
 app.set("trust proxy", 1);
 
 const devOrigin = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+const normalizeOrigin = (value) => String(value || "").trim().replace(/\/+$/, "").toLowerCase();
+const allowedClientOrigin = normalizeOrigin(env.CLIENT_URL);
 
 app.use(
   cors({
@@ -21,7 +23,7 @@ app.use(
       if (env.NODE_ENV === "development" && devOrigin.test(origin)) {
         return callback(null, true);
       }
-      if (origin === env.CLIENT_URL) return callback(null, true);
+      if (normalizeOrigin(origin) === allowedClientOrigin) return callback(null, true);
       callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
