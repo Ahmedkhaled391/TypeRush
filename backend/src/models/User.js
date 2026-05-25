@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import {
+  MAX_MULTIPLAYER_LEVEL,
+  MAX_MULTIPLAYER_POINTS,
+} from "../utils/multiplayerLevel.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -32,6 +36,18 @@ const userSchema = new mongoose.Schema(
     profileImage: {
       type: String,
       default: "",
+    },
+    level: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: MAX_MULTIPLAYER_LEVEL,
+    },
+    points: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: MAX_MULTIPLAYER_POINTS,
     },
   },
   {

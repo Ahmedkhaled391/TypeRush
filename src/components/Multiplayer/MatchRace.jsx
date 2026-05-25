@@ -2,9 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import MatchResults from "./MatchResults";
 import TypingRacePanel from "./TypingRacePanel";
-import { getCachedUser } from "../../services/authService";
+import { getCachedUser, setCachedUser } from "../../services/authService";
 import { getLesson } from "../../services/lessonsService";
 import { getMatchByCode } from "../../services/matchService";
+import { buildMultiplayerLevelProgress } from "../../services/multiplayerLevel";
 import { socket } from "../../services/socket";
 import {
   applyTypingKeyToState,
@@ -45,6 +46,12 @@ function MatchRace() {
   const [opponentName, setOpponentName] = useState("Opponent");
   const [myPlayerId, setMyPlayerId] = useState("");
   const myPlayerIdRef = useRef("");
+  const [myLevelProgress, setMyLevelProgress] = useState(() =>
+    buildMultiplayerLevelProgress(getCachedUser()),
+  );
+  const [opponentLevelProgress, setOpponentLevelProgress] = useState(() =>
+    buildMultiplayerLevelProgress(),
+  );
   const [startedAt, setStartedAt] = useState(null);
   const [raceResult, setRaceResult] = useState(null);
   const [error, setError] = useState("");
@@ -145,9 +152,15 @@ function MatchRace() {
       if (opponent) {
         setOpponentName(opponent.username || "Opponent");
         setOpponentTypingState(createInitialTypingState(opponent.typingState));
+        setOpponentLevelProgress(
+          buildMultiplayerLevelProgress(opponent.levelProgress),
+        );
       }
       if (me?.typingState) {
         setMyTypingState(createInitialTypingState(me.typingState));
+      }
+      if (me?.levelProgress) {
+        setMyLevelProgress(buildMultiplayerLevelProgress(me.levelProgress));
       }
     };
 
@@ -155,6 +168,9 @@ function MatchRace() {
       if (!player) return;
       setOpponentName(player.username || "Opponent");
       setOpponentTypingState(createInitialTypingState(player.typingState));
+      setOpponentLevelProgress(
+        buildMultiplayerLevelProgress(player.levelProgress),
+      );
     };
 
     const handleOpponentTypingState = ({ typingState } = {}) => {
@@ -164,6 +180,11 @@ function MatchRace() {
     const handleOpponentReady = ({ player } = {}) => {
       if (player?.username) {
         setOpponentName(player.username);
+      }
+      if (player?.levelProgress) {
+        setOpponentLevelProgress(
+          buildMultiplayerLevelProgress(player.levelProgress),
+        );
       }
       setOpponentTypingState((prev) =>
         createInitialTypingState({ ...prev, isReady: true }),
@@ -212,9 +233,34 @@ function MatchRace() {
       if (me?.typingState) {
         setMyTypingState(createInitialTypingState(me.typingState));
       }
+      if (me?.levelProgress) {
+        setMyLevelProgress(buildMultiplayerLevelProgress(me.levelProgress));
+      }
       if (opponent?.typingState) {
         setOpponentName(opponent.username || "Opponent");
         setOpponentTypingState(createInitialTypingState(opponent.typingState));
+      }
+      if (opponent?.levelProgress) {
+        setOpponentLevelProgress(
+          buildMultiplayerLevelProgress(opponent.levelProgress),
+        );
+      }
+
+      const localReward = payload.levelRewards?.[localPlayerId];
+      if (localReward?.levelProgress) {
+        const levelProgress = buildMultiplayerLevelProgress(
+          localReward.levelProgress,
+        );
+        const cachedUser = getCachedUser();
+        setMyLevelProgress(levelProgress);
+        if (cachedUser) {
+          setCachedUser({
+            ...cachedUser,
+            level: levelProgress.level,
+            points: levelProgress.points,
+            levelProgress,
+          });
+        }
       }
     };
 
@@ -225,6 +271,7 @@ function MatchRace() {
     const handleOpponentDisconnected = () => {
       setOpponentName("Opponent");
       setOpponentTypingState(createInitialTypingState());
+      setOpponentLevelProgress(buildMultiplayerLevelProgress());
       setMatchStatus((prev) => (prev === "finished" ? prev : "waiting"));
     };
 
@@ -458,6 +505,7 @@ function MatchRace() {
               }
               onTypingChange={handleTypingChange}
               statusLabel={getPlayerStatus(myTypingState, matchStatus)}
+              levelProgress={myLevelProgress}
             />
             <TypingRacePanel
               playerName={opponentName}
@@ -465,6 +513,7 @@ function MatchRace() {
               typingState={opponentTypingState}
               isLocalPlayer={false}
               statusLabel={getPlayerStatus(opponentTypingState, matchStatus)}
+              levelProgress={opponentLevelProgress}
             />
           </div>
         )}

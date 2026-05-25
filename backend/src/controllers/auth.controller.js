@@ -16,6 +16,7 @@ import {
 } from "../utils/tokens.js";
 import { sendVerificationEmail } from "../services/mail.service.js";
 import { env } from "../config/env.js";
+import { getMultiplayerLevelProgress } from "../utils/multiplayerLevel.js";
 
 function generateVerificationCode() {
   return String(Math.floor(100000 + Math.random() * 900000));
@@ -30,6 +31,21 @@ function setRefreshTokenCookie(res, token) {
     path: "/api/auth/refresh-token",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
+}
+
+function publicUser(user) {
+  const levelProgress = getMultiplayerLevelProgress(user);
+
+  return {
+    id: user._id,
+    username: user.username,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    profileImage: user.profileImage || "",
+    level: levelProgress.level,
+    points: levelProgress.points,
+    levelProgress,
+  };
 }
 
 export const signup = asyncHandler(async (req, res) => {
@@ -127,13 +143,7 @@ export const verifyEmail = asyncHandler(async (req, res) => {
     message: "Email verified successfully",
     data: {
       accessToken,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        profileImage: user.profileImage || "",
-      },
+      user: publicUser(user),
     },
   });
 });
@@ -172,13 +182,7 @@ export const login = asyncHandler(async (req, res) => {
     success: true,
     data: {
       accessToken,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        profileImage: user.profileImage || "",
-      },
+      user: publicUser(user),
     },
   });
 });
@@ -238,13 +242,7 @@ export const logout = asyncHandler(async (req, res) => {
 export const me = asyncHandler(async (req, res) => {
   return res.status(200).json({
     success: true,
-    data: {
-      id: req.user._id,
-      username: req.user.username,
-      email: req.user.email,
-      emailVerified: req.user.emailVerified,
-      profileImage: req.user.profileImage || "",
-    },
+    data: publicUser(req.user),
   });
 });
 
@@ -270,17 +268,11 @@ export const updateProfile = asyncHandler(async (req, res) => {
     req.user._id,
     payload,
     { new: true, runValidators: true }
-  ).select("_id username email emailVerified profileImage");
+  ).select("_id username email emailVerified profileImage level points");
 
   return res.status(200).json({
     success: true,
     message: "Profile updated",
-    data: {
-      id: updatedUser._id,
-      username: updatedUser.username,
-      email: updatedUser.email,
-      emailVerified: updatedUser.emailVerified,
-      profileImage: updatedUser.profileImage || "",
-    },
+    data: publicUser(updatedUser),
   });
 });

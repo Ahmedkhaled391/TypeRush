@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import Stats from "../Lessons/Stats";
 import { TextDisplayContainer } from "../ui/TextDisplayContainer";
+import { buildMultiplayerLevelProgress } from "../../services/multiplayerLevel";
 import { createInitialTypingState } from "../../services/typingMetrics";
 
 function formatPressedKey(key) {
@@ -17,9 +18,11 @@ function TypingRacePanel({
   isInputEnabled = false,
   onTypingChange,
   statusLabel = "Waiting",
+  levelProgress,
 }) {
   const panelRef = useRef(null);
   const safeState = createInitialTypingState(typingState);
+  const safeLevelProgress = buildMultiplayerLevelProgress(levelProgress);
 
   useEffect(() => {
     if (isLocalPlayer && isInputEnabled) {
@@ -50,6 +53,16 @@ function TypingRacePanel({
             <h2 className="mt-1 text-2xl font-bold text-brand-heading">
               {playerName}
             </h2>
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs font-semibold text-brand-muted">
+              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                Level {safeLevelProgress.level}
+              </span>
+              <span>
+                {safeLevelProgress.isMaxLevel
+                  ? "Max"
+                  : `${safeLevelProgress.pointsInLevel}/${safeLevelProgress.pointsPerLevel} pts`}
+              </span>
+            </div>
           </div>
           <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-vibrant-mint-green">
             {statusLabel}
