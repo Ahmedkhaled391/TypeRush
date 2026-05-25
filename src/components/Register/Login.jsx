@@ -2,7 +2,7 @@ import emailicon from "../../assets/images/emailicon.png"
 import { Link, useNavigate } from "react-router-dom"
 import ball from "../../assets/images/ball.png"
 import { useState } from "react"
-import { loginUser } from "../../services/authService"
+import { AUTH_ERROR_CODES, loginUser } from "../../services/authService"
 import PasswordInput from "../ui/PasswordInput"
 
 function Login() {
@@ -31,6 +31,16 @@ function Login() {
             })
             navigate("/")
         } catch (error) {
+            if (error.code === AUTH_ERROR_CODES.PENDING_VERIFICATION) {
+                navigate("/verify-email", {
+                    state: {
+                        email: error.data?.email || formData.email.trim(),
+                        message: error.message,
+                    },
+                })
+                return
+            }
+
             setSubmitError(error.message || "Login failed. Please try again.")
         } finally {
             setIsSubmitting(false)

@@ -12,6 +12,7 @@ function EmailVerification() {
         email: state?.email || "",
         code: "",
     })
+    const [notice] = useState(state?.message || "")
     const [submitError, setSubmitError] = useState("")
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -79,6 +80,7 @@ function EmailVerification() {
                         <p className="paragraph-muted-sm mt-7 text-center text-sm">
                             After registration, we sent a 6-digit code to your email.
                         </p>
+                        {notice && <p className="paragraph-muted-sm mt-3 text-center text-sm text-vibrant-mint-green">{notice}</p>}
 
                         <div className="mt-8 text-center">
                             {submitError && <p className="mb-3 text-xs font-semibold text-red-400">{submitError}</p>}
