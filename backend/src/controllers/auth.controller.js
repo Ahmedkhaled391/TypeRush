@@ -90,17 +90,12 @@ export const signup = asyncHandler(async (req, res) => {
     verificationCodeExpiresAt,
   });
 
-  try {
-    await sendVerificationEmail({ email: pending.email, username: pending.username, code: verificationCode });
-  } catch (mailErr) {
+  sendVerificationEmail({ email: pending.email, username: pending.username, code: verificationCode }).catch((mailErr) => {
     console.error("[signup] SMTP error:", mailErr?.message || mailErr);
-    if (env.NODE_ENV === "production") {
-      await PendingRegistration.deleteOne({ _id: pending._id });
-      return res.status(500).json({ success: false, message: "Failed to send verification email. Please try again." });
+    if (env.NODE_ENV !== "production") {
+      console.warn(`[signup:dev] Verification code for ${pending.email}: ${verificationCode}`);
     }
-    // In development, log the code and continue so the flow can be tested without valid SMTP
-    console.warn(`[signup:dev] Verification code for ${pending.email}: ${verificationCode}`);
-  }
+  });
 
   return res.status(201).json({
     success: true,
