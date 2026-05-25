@@ -2,10 +2,11 @@ import { z } from "zod";
 
 export const createMatchSchema = z.object({
   lessonId: z.number().int().min(1).max(100),
+  code: z.string().trim().regex(/^\d{6}$/, "Code must be 6 digits").optional(),
 });
 
 export const joinMatchSchema = z.object({
-  code: z.string().trim().length(6),
+  code: z.string().trim().regex(/^\d{6}$/, "Code must be 6 digits"),
   username: z.string().trim().min(3).max(32),
 });
 

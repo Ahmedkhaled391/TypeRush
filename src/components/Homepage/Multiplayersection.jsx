@@ -2,11 +2,32 @@ import multiplayerArenaImage from "../../assets/images/Multiplayer arena.png"
 import multiplayerIcon from "../../assets/images/multiplayer icon.png"
 import overlay from "../../assets/images/Overlay.png"
 import { Link }  from "react-router-dom";
+import { useEffect, useState } from "react"
 import arrow from "../../assets/images/arrow.png"
 import a from "../../assets/images/A.png"
 import hash from "../../assets/images/hash.png"
+import { getCachedUser, subscribeAuthChanges } from "../../services/authService"
+import {
+    buildMultiplayerLevelProgress,
+    getMultiplayerLevelTitle,
+} from "../../services/multiplayerLevel"
 
 function Multiplayer() {
+    const [currentUser, setCurrentUser] = useState(() => getCachedUser())
+    const levelProgress = buildMultiplayerLevelProgress(currentUser)
+    const levelTitle = getMultiplayerLevelTitle(levelProgress.level)
+    const progressLabel = levelProgress.isMaxLevel
+        ? `${levelProgress.points} pts`
+        : `${levelProgress.pointsInLevel}/${levelProgress.pointsPerLevel} pts`
+
+    useEffect(() => {
+        const unsubscribe = subscribeAuthChanges(() => {
+            setCurrentUser(getCachedUser())
+        })
+
+        return unsubscribe
+    }, [])
+
     return ( <>
        <section className="container mx-auto grid grid-cols-1 gap-6 px-4 my-10 md:grid-cols-12">
 
@@ -28,13 +49,20 @@ function Multiplayer() {
                     <p className="paragraph-muted-sm">Challenge Your Friends To Gain More Level Points</p>
                     <div className="progress flex w-full flex-col items-center justify-center gap-4">
                     <div className="line relative h-2 w-full rounded-full bg-amber-400 ">
-                        <div className="absolute left-0 top-0 h-full bg-green-500 rounded-full transition-all duration-300 w-[48%]" >
+                        <div
+                            className="absolute left-0 top-0 h-full bg-green-500 rounded-full transition-all duration-300"
+                            style={{ width: `${levelProgress.progressPercent}%` }}
+                        >
 
                         </div>
                     </div>
                     <div className=" w-full justify-between flex ">
-                    <h3 className="text-base font-bold text-brand-heading ">Level 48</h3>
-                    <h3 className="text-sm font-medium text-brand-muted ">Pro Level</h3>
+                    <h3 className="text-base font-bold text-brand-heading ">Level {levelProgress.level}</h3>
+                    <h3 className="text-sm font-medium text-brand-muted ">{levelTitle}</h3>
+                    </div>
+                    <div className=" w-full justify-between flex text-xs font-medium text-brand-muted">
+                    <span>{progressLabel}</span>
+                    <span>Level {levelProgress.maxLevel} cap</span>
                     </div>
                     </div>
                    

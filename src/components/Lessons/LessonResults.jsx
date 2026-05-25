@@ -94,6 +94,8 @@ function LessonResults({
     wpmRequirement,
     accuracyRequirement,
     onRetry,
+    onNextLesson,
+    showActions = true,
     stars: providedStars,
     passed: providedPassed,
     prevBestBeforeAttempt = 0,
@@ -111,6 +113,15 @@ function LessonResults({
 
     const [panelVisible, setPanelVisible] = useState(false);
     const [gaugesAnimate, setGaugesAnimate] = useState(false);
+
+    const handleNextLesson = () => {
+        if (onNextLesson) {
+            onNextLesson();
+            return;
+        }
+
+        navigate(`/lessons/${lessonNumber + 1}/practise`);
+    };
 
     useEffect(() => {
         const t1 = setTimeout(() => setPanelVisible(true), 50);
@@ -221,35 +232,37 @@ function LessonResults({
                 </p>
             )}
 
-            <div className="flex justify-center gap-4 mt-10">
-                {passed ? (
-                    <>
-                        <button onClick={onRetry} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
-                            Try Again
-                        </button>
-                        {!isLast && (
-                            <button
-                                onClick={() => navigate(`/lessons/${lessonNumber + 1}/practise`)}
-                                className="px-6 py-3 rounded-xl bg-cta-button border border-vibrant-mint-green text-vibrant-mint-green font-semibold hover:bg-cta-button-hover transition"
-                            >
-                                Next Lesson →
+            {showActions && (
+                <div className="flex justify-center gap-4 mt-10">
+                    {passed ? (
+                        <>
+                            <button onClick={onRetry} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
+                                Try Again
                             </button>
-                        )}
-                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
-                            All Lessons
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <button onClick={onRetry} className="px-8 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-slate-900 dark:text-white font-bold transition">
-                            Try Again
-                        </button>
-                        <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
-                            All Lessons
-                        </button>
-                    </>
-                )}
-            </div>
+                            {!isLast && (
+                                <button
+                                    onClick={handleNextLesson}
+                                    className="px-6 py-3 rounded-xl bg-cta-button border border-vibrant-mint-green text-vibrant-mint-green font-semibold hover:bg-cta-button-hover transition"
+                                >
+                                    Next Lesson →
+                                </button>
+                            )}
+                            <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
+                                All Lessons
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={onRetry} className="px-8 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-slate-900 dark:text-white font-bold transition">
+                                Try Again
+                            </button>
+                            <button onClick={() => navigate("/lessons")} className="px-6 py-3 rounded-xl bg-light-gray text-slate-900 dark:text-white font-semibold hover:bg-slate-600 transition">
+                                All Lessons
+                            </button>
+                        </>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

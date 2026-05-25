@@ -11,7 +11,7 @@ export async function requireAuth(req, res, next) {
     }
 
     const payload = verifyAccessToken(token);
-    const user = await User.findById(payload.sub).select("_id username email emailVerified profileImage");
+    const user = await User.findById(payload.sub).select("_id username email emailVerified profileImage level points");
 
     if (!user) {
       return res.status(401).json({ success: false, message: "Invalid token user" });
