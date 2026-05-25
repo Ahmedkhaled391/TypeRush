@@ -3,6 +3,10 @@ const ACCESS_TOKEN_KEY = "typerush_access_token";
 const USER_CACHE_KEY = "typerush_user";
 const AUTH_CHANGED_EVENT = "typerush-auth-changed";
 
+export const AUTH_ERROR_CODES = {
+  PENDING_VERIFICATION: "PENDING_VERIFICATION",
+};
+
 function emitAuthChanged() {
   if (typeof window === "undefined") return;
   window.dispatchEvent(new Event(AUTH_CHANGED_EVENT));
@@ -29,6 +33,8 @@ async function parseApiResponse(response) {
     const message = payload?.message || `Request failed with status ${response.status}`;
     const error = new Error(message);
     error.status = response.status;
+    error.code = payload?.code;
+    error.data = payload?.data;
     error.details = payload?.details;
     throw error;
   }

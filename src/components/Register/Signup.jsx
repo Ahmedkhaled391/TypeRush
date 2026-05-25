@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ball from "../../assets/images/ball.png"
 import { isValidEmail, isValidPass, isValidUsername } from "../../utils/validators";
-import { signupUser } from "../../services/authService";
+import { AUTH_ERROR_CODES, signupUser } from "../../services/authService";
 import PasswordInput from "../ui/PasswordInput";
 
 function Signup() {
@@ -92,6 +92,16 @@ function Signup() {
             });
             navigate("/verify-email", { state: { email: formData.email.trim() } });
         } catch (error) {
+            if (error.code === AUTH_ERROR_CODES.PENDING_VERIFICATION) {
+                navigate("/verify-email", {
+                    state: {
+                        email: error.data?.email || formData.email.trim(),
+                        message: error.message,
+                    },
+                });
+                return;
+            }
+
             setSubmitError(error.message || "Signup failed. Please try again.");
         } finally {
             setIsSubmitting(false);

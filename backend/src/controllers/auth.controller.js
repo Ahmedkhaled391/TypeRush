@@ -22,8 +22,12 @@ function generateVerificationCode() {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
+const AUTH_ERROR_CODES = {
+  PENDING_VERIFICATION: "PENDING_VERIFICATION",
+};
+
 function setRefreshTokenCookie(res, token) {
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = env.NODE_ENV === "production";
   res.cookie("refreshToken", token, {
     httpOnly: true,
     secure: isProduction,
@@ -66,7 +70,12 @@ export const signup = asyncHandler(async (req, res) => {
 
   const existingPending = await PendingRegistration.findOne({ email: email.toLowerCase() });
   if (existingPending) {
-    return res.status(409).json({ success: false, message: "A verification email was already sent. Please check your inbox or wait 10 minutes to try again." });
+    return res.status(409).json({
+      success: false,
+      code: AUTH_ERROR_CODES.PENDING_VERIFICATION,
+      message: "A verification email was already sent. Please check your inbox or wait 10 minutes to try again.",
+      data: { email: existingPending.email },
+    });
   }
 
   const passwordHash = await bcrypt.hash(password, 12);
@@ -158,6 +167,19 @@ export const login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
+    const pending = await PendingRegistration.findOne({ email: email.toLowerCase() });
+    if (pending) {
+      const pendingPasswordMatches = await bcrypt.compare(password, pending.passwordHash);
+      if (pendingPasswordMatches) {
+        return res.status(403).json({
+          success: false,
+          code: AUTH_ERROR_CODES.PENDING_VERIFICATION,
+          message: "Please verify your email first",
+          data: { email: pending.email },
+        });
+      }
+    }
+
     return res.status(401).json({ success: false, message: "Invalid email or password" });
   }
 
@@ -167,7 +189,12 @@ export const login = asyncHandler(async (req, res) => {
   }
 
   if (!user.emailVerified) {
-    return res.status(403).json({ success: false, message: "Please verify your email first" });
+    return res.status(403).json({
+      success: false,
+      code: AUTH_ERROR_CODES.PENDING_VERIFICATION,
+      message: "Please verify your email first",
+      data: { email: user.email },
+    });
   }
 
   const tokenPayload = { sub: String(user._id), email: user.email, username: user.username };
