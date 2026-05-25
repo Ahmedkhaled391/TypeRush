@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import VerifyEmail from './pages/VerifyEmail'
 import Multiplater from './pages/Multiplayer'
+import Match from './pages/Match'
 import Practise from './components/Lessons/Practise'
 import Results from './pages/Results'
 import ProfileSetup from './pages/ProfileSetup'
@@ -42,6 +43,7 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/profile-setup" element={requireAuth(<ProfileSetup />)} />
         <Route path="/challenge" element={requireAuth(<Multiplater />)} />
+        <Route path="/match/:code" element={requireAuth(<Match />)} />
         <Route path="/stats" element={requireAuth(<Stats />)} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

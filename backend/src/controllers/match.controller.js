@@ -1,5 +1,4 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { nanoid } from "nanoid";
 import { Match } from "../models/Match.js";
 import {
   createMatchSchema,
@@ -8,7 +7,7 @@ import {
 } from "../validators/match.validators.js";
 
 function makeCode() {
-  return nanoid(6).replace(/[^A-Za-z0-9]/g, "X").toUpperCase().slice(0, 6);
+  return String(Math.floor(100000 + Math.random() * 900000));
 }
 
 async function generateUniqueCode() {
@@ -26,7 +25,12 @@ export const createMatch = asyncHandler(async (req, res) => {
     return res.status(400).json({ success: false, message: "Invalid payload", details: validated.errors });
   }
 
-  const code = await generateUniqueCode();
+  const requestedCode = validated.data.code;
+  const code = requestedCode || await generateUniqueCode();
+  if (requestedCode && await Match.exists({ code: requestedCode })) {
+    return res.status(409).json({ success: false, message: "Match code already exists" });
+  }
+
   const userId = req.user._id;
 
   const match = await Match.create({
@@ -72,6 +76,10 @@ export const joinMatchByCode = asyncHandler(async (req, res) => {
   }
 
   const alreadyJoined = match.participants.some((p) => String(p.userId) === String(userId));
+  if (!alreadyJoined && match.participants.length >= 2) {
+    return res.status(400).json({ success: false, message: "Match is already full" });
+  }
+
   if (!alreadyJoined) {
     match.participants.push({ userId, username });
     await match.save();
