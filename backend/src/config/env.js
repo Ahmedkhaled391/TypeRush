@@ -3,13 +3,6 @@ import { z } from "zod";
 
 dotenv.config();
 
-const emptyToUndefined = (value) => {
-  if (value === "" || value === null || value === undefined) {
-    return undefined;
-  }
-  return value;
-};
-
 const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "test", "production"])
