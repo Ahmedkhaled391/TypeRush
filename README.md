@@ -1,9 +1,5 @@
 # TypeRush
 
-<div align="center">
-  <img src="src/assets/images/hero.png" alt="TypeRush hero artwork" width="180" />
-</div>
-
 > TypeRush is a typing-learning and practice platform inspired by TypingClub, with a stronger focus on progression, stats, and live 1v1 typing races.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
@@ -12,6 +8,7 @@
 ![Express](https://img.shields.io/badge/Express-5-000000?logo=express)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas_or_Local-47A248?logo=mongodb)
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-Real-time-010101?logo=socket.io)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)
 
 TypeRush is inspired by TypingClub (A famous touch typing website), but it extends the classic typing practice model with:
 
