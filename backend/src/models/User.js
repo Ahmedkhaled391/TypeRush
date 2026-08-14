@@ -6,7 +6,7 @@ import {
 
 const userSchema = new mongoose.Schema(
   {
-    username: {  
+    username: {
       type: String,
       required: true,
       unique: true,
@@ -24,10 +24,6 @@ const userSchema = new mongoose.Schema(
     passwordHash: {
       type: String,
       required: true,
-    },
-    emailVerified: {
-      type: Boolean,
-      default: true,
     },
     refreshTokenHash: {
       type: String,
@@ -52,7 +48,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const User = mongoose.model("User", userSchema);

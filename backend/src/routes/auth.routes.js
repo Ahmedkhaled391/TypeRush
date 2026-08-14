@@ -1,7 +1,6 @@
 import { Router } from "express";
 import {
   signup,
-  verifyEmail,
   login,
   refreshToken,
   logout,
@@ -13,7 +12,6 @@ import { requireAuth } from "../middlewares/auth.middleware.js";
 const authRouter = Router();
 
 authRouter.post("/signup", signup);
-authRouter.post("/verify-email", verifyEmail);
 authRouter.post("/login", login);
 authRouter.post("/refresh-token", refreshToken);
 authRouter.post("/logout", logout);

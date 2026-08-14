@@ -1,4 +1,5 @@
-import keyboardImage from "../../assets/images/Professional mechanical keyboard.png";
+
+import TouchTypingImage from "../../assets/images/TouchTyping.jpeg";
 import { Link } from "react-router-dom";
 
 function Hero() {
@@ -54,9 +55,9 @@ function Hero() {
           </div>
         </div>
         <div className="keyboard  mx-auto mt-20 flex flex-col items-center justify-center gap-5 rounded-2xl  p-8 dark:bg-slate-900 bg-opacity-50 lg:flex-row">
-          <div className="relative w-full max-w-md after:absolute after:inset-0 after:bg-black/60 dark:after:hidden">
+          <div className="relative w-full max-w-md after:absolute ">
             <img
-              src={keyboardImage}
+              src={TouchTypingImage}
               alt="Keyboard image"
               className="w-full max-w-md relative"
             />

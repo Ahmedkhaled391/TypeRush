@@ -1,11 +1,8 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5001/api";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5001/api";
 const ACCESS_TOKEN_KEY = "typerush_access_token";
 const USER_CACHE_KEY = "typerush_user";
 const AUTH_CHANGED_EVENT = "typerush-auth-changed";
-
-export const AUTH_ERROR_CODES = {
-  PENDING_VERIFICATION: "PENDING_VERIFICATION",
-};
 
 function emitAuthChanged() {
   if (typeof window === "undefined") return;
@@ -30,7 +27,8 @@ async function parseApiResponse(response) {
   }
 
   if (!response.ok) {
-    const message = payload?.message || `Request failed with status ${response.status}`;
+    const message =
+      payload?.message || `Request failed with status ${response.status}`;
     const error = new Error(message);
     error.status = response.status;
     error.code = payload?.code;
@@ -127,16 +125,9 @@ export async function apiRequest(path, options = {}) {
 }
 
 export async function signupUser({ username, email, password }) {
-  return apiRequest("/auth/signup", {
+  const response = await apiRequest("/auth/signup", {
     method: "POST",
     body: JSON.stringify({ username, email, password }),
-  });
-}
-
-export async function verifyEmailCode({ email, code }) {
-  const response = await apiRequest("/auth/verify-email", {
-    method: "POST",
-    body: JSON.stringify({ email, code }),
   });
 
   const token = response?.data?.accessToken;

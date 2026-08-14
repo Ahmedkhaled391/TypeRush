@@ -72,7 +72,6 @@ A full-stack typing speed trainer with a structured lesson curriculum, real-time
 | Socket.IO           | WebSocket server for multiplayer |
 | JWT (jsonwebtoken)  | Access and refresh token auth    |
 | bcryptjs            | Password and token hashing       |
-| Nodemailer          | Verification email delivery      |
 | Zod                 | Environment variable validation  |
 | Helmet              | HTTP security headers            |
 | express-rate-limit  | Auth route rate limiting         |
@@ -99,7 +98,7 @@ TypeRush/
 │   │   ├── Homepage/           # Hero, CTA, Multiplayer section
 │   │   ├── Lessons/            # Lesson grid, practice view, results
 │   │   ├── Multiplayer/        # 1v1 challenge UI
-│   │   ├── Register/           # Signup, Login, EmailVerification, ProfileSetup
+│   │   ├── Register/           # Signup, Login, ProfileSetup
 │   │   └── ui/                 # Reusable inputs
 │   ├── context/
 │   │   └── ThemeContext.jsx     # Dark/light mode state
@@ -113,7 +112,7 @@ TypeRush/
     └── src/
         ├── controllers/        # Auth, progress, match, health
         ├── middlewares/        # Auth guard, error handler
-        ├── models/             # User, Attempt, Match, PendingRegistration
+        ├── models/             # User, Attempt, Match
         ├── routes/             # API route definitions
         ├── services/           # Mail service
         ├── sockets/            # Socket.IO handlers
@@ -132,7 +131,6 @@ TypeRush/
 ### Auth
 
 - `POST /api/auth/signup`
-- `POST /api/auth/verify-email`
 - `POST /api/auth/login`
 - `POST /api/auth/refresh-token`
 - `POST /api/auth/logout`

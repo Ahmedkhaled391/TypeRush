@@ -7,19 +7,27 @@ export async function requireAuth(req, res, next) {
     const [scheme, token] = authHeader.split(" ");
 
     if (scheme !== "Bearer" || !token) {
-      return res.status(401).json({ success: false, message: "Missing bearer token" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Missing bearer token" });
     }
 
     const payload = verifyAccessToken(token);
-    const user = await User.findById(payload.sub).select("_id username email emailVerified profileImage level points");
+    const user = await User.findById(payload.sub).select(
+      "_id username email profileImage level points",
+    );
 
     if (!user) {
-      return res.status(401).json({ success: false, message: "Invalid token user" });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid token user" });
     }
 
     req.user = user;
     return next();
   } catch {
-    return res.status(401).json({ success: false, message: "Invalid or expired token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid or expired token" });
   }
 }

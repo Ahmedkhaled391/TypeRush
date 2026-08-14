@@ -17,16 +17,6 @@ npm install
 - `JWT_ACCESS_SECRET`
 - `JWT_REFRESH_SECRET`
 
-Optional for real emails:
-
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `MAIL_FROM`
-
-If SMTP is empty, verification email is logged to server console.
-
 ## 3) Start MongoDB
 
 You got this error because Mongo is not running:
@@ -70,7 +60,6 @@ npm run dev
 ### Auth
 
 - `POST /api/auth/signup`
-- `POST /api/auth/verify-email`
 - `POST /api/auth/login`
 - `POST /api/auth/refresh-token`
 - `POST /api/auth/logout`
@@ -88,4 +77,3 @@ npm run dev
 - `POST /api/matches`
 - `POST /api/matches/join`
 - `GET /api/matches/:code`
-

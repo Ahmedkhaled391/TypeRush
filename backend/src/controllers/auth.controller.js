@@ -1,30 +1,19 @@
 import bcrypt from "bcryptjs";
+import { env } from "../config/env.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/User.js";
-import { PendingRegistration } from "../models/PendingRegistration.js";
 import {
   loginSchema,
   profileUpdateSchema,
   signupSchema,
   validateBody,
-  verifyEmailSchema,
 } from "../validators/auth.validators.js";
 import {
   signAccessToken,
   signRefreshToken,
   verifyRefreshToken,
 } from "../utils/tokens.js";
-import { sendVerificationEmail } from "../services/mail.service.js";
-import { env } from "../config/env.js";
 import { getMultiplayerLevelProgress } from "../utils/multiplayerLevel.js";
-
-function generateVerificationCode() {
-  return String(Math.floor(100000 + Math.random() * 900000));
-}
-
-const AUTH_ERROR_CODES = {
-  PENDING_VERIFICATION: "PENDING_VERIFICATION",
-};
 
 function setRefreshTokenCookie(res, token) {
   const isProduction = env.NODE_ENV === "production";
@@ -44,7 +33,6 @@ function publicUser(user) {
     id: user._id,
     username: user.username,
     email: user.email,
-    emailVerified: user.emailVerified,
     profileImage: user.profileImage || "",
     level: levelProgress.level,
     points: levelProgress.points,
@@ -55,7 +43,13 @@ function publicUser(user) {
 export const signup = asyncHandler(async (req, res) => {
   const validated = validateBody(signupSchema, req.body);
   if (!validated.ok) {
-    return res.status(400).json({ success: false, message: "Invalid payload", details: validated.errors });
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Invalid payload",
+        details: validated.errors,
+      });
   }
 
   const { username, email, password } = validated.data;
@@ -63,78 +57,27 @@ export const signup = asyncHandler(async (req, res) => {
   const existingUser = await User.findOne({ $or: [{ email }, { username }] });
   if (existingUser) {
     if (existingUser.email === email.toLowerCase()) {
-      return res.status(409).json({ success: false, message: "Email already in use" });
+      return res
+        .status(409)
+        .json({ success: false, message: "Email already in use" });
     }
-    return res.status(409).json({ success: false, message: "Username already taken" });
-  }
-
-  const existingPending = await PendingRegistration.findOne({ email: email.toLowerCase() });
-  if (existingPending) {
-    return res.status(409).json({
-      success: false,
-      code: AUTH_ERROR_CODES.PENDING_VERIFICATION,
-      message: "A verification email was already sent. Please check your inbox or wait 10 minutes to try again.",
-      data: { email: existingPending.email },
-    });
+    return res
+      .status(409)
+      .json({ success: false, message: "Username already taken" });
   }
 
   const passwordHash = await bcrypt.hash(password, 12);
-  const verificationCode = generateVerificationCode();
-  const verificationCodeExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
-
-  const pending = await PendingRegistration.create({
-    username,
-    email,
-    passwordHash,
-    verificationCode,
-    verificationCodeExpiresAt,
-  });
-
-  sendVerificationEmail({ email: pending.email, username: pending.username, code: verificationCode }).catch((mailErr) => {
-    console.error("[signup] SMTP error:", mailErr?.message || mailErr);
-    if (env.NODE_ENV !== "production") {
-      console.warn(`[signup:dev] Verification code for ${pending.email}: ${verificationCode}`);
-    }
-  });
-
-  return res.status(201).json({
-    success: true,
-    message: "Verification code sent. Please check your email.",
-  });
-});
-
-export const verifyEmail = asyncHandler(async (req, res) => {
-  const validated = validateBody(verifyEmailSchema, req.body);
-  if (!validated.ok) {
-    return res.status(400).json({ success: false, message: "Invalid payload", details: validated.errors });
-  }
-
-  const { email, code } = validated.data;
-  const pending = await PendingRegistration.findOne({ email: email.toLowerCase() });
-
-  if (!pending) {
-    return res.status(404).json({ success: false, message: "No pending registration found for this email" });
-  }
-
-  if (new Date() > pending.verificationCodeExpiresAt) {
-    await PendingRegistration.deleteOne({ _id: pending._id });
-    return res.status(400).json({ success: false, message: "Verification code has expired. Please sign up again." });
-  }
-
-  if (pending.verificationCode !== code) {
-    return res.status(400).json({ success: false, message: "Invalid verification code" });
-  }
-
   const user = await User.create({
-    username: pending.username,
-    email: pending.email,
-    passwordHash: pending.passwordHash,
-    emailVerified: true,
+    username,
+    email: email.toLowerCase(),
+    passwordHash,
   });
 
-  await PendingRegistration.deleteOne({ _id: pending._id });
-
-  const tokenPayload = { sub: String(user._id), email: user.email, username: user.username };
+  const tokenPayload = {
+    sub: String(user._id),
+    email: user.email,
+    username: user.username,
+  };
   const accessToken = signAccessToken(tokenPayload);
   const refreshToken = signRefreshToken({ sub: String(user._id) });
   user.refreshTokenHash = await bcrypt.hash(refreshToken, 10);
@@ -142,9 +85,9 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 
   setRefreshTokenCookie(res, refreshToken);
 
-  return res.status(200).json({
+  return res.status(201).json({
     success: true,
-    message: "Email verified successfully",
+    message: "Account created successfully.",
     data: {
       accessToken,
       user: publicUser(user),
@@ -155,44 +98,36 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 export const login = asyncHandler(async (req, res) => {
   const validated = validateBody(loginSchema, req.body);
   if (!validated.ok) {
-    return res.status(400).json({ success: false, message: "Invalid payload", details: validated.errors });
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Invalid payload",
+        details: validated.errors,
+      });
   }
 
   const { email, password } = validated.data;
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: email.toLowerCase() });
 
   if (!user) {
-    const pending = await PendingRegistration.findOne({ email: email.toLowerCase() });
-    if (pending) {
-      const pendingPasswordMatches = await bcrypt.compare(password, pending.passwordHash);
-      if (pendingPasswordMatches) {
-        return res.status(403).json({
-          success: false,
-          code: AUTH_ERROR_CODES.PENDING_VERIFICATION,
-          message: "Please verify your email first",
-          data: { email: pending.email },
-        });
-      }
-    }
-
-    return res.status(401).json({ success: false, message: "Invalid email or password" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid email or password" });
   }
 
   const passwordMatches = await bcrypt.compare(password, user.passwordHash);
   if (!passwordMatches) {
-    return res.status(401).json({ success: false, message: "Invalid email or password" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid email or password" });
   }
 
-  if (!user.emailVerified) {
-    return res.status(403).json({
-      success: false,
-      code: AUTH_ERROR_CODES.PENDING_VERIFICATION,
-      message: "Please verify your email first",
-      data: { email: user.email },
-    });
-  }
-
-  const tokenPayload = { sub: String(user._id), email: user.email, username: user.username };
+  const tokenPayload = {
+    sub: String(user._id),
+    email: user.email,
+    username: user.username,
+  };
   const accessToken = signAccessToken(tokenPayload);
   const refreshToken = signRefreshToken({ sub: String(user._id) });
   user.refreshTokenHash = await bcrypt.hash(refreshToken, 10);
@@ -213,19 +148,25 @@ export const refreshToken = asyncHandler(async (req, res) => {
   const currentToken = req.cookies?.refreshToken;
 
   if (!currentToken) {
-    return res.status(401).json({ success: false, message: "Missing refresh token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Missing refresh token" });
   }
 
   const payload = verifyRefreshToken(currentToken);
   const user = await User.findById(payload.sub);
 
   if (!user || !user.refreshTokenHash) {
-    return res.status(401).json({ success: false, message: "Invalid refresh token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid refresh token" });
   }
 
   const matches = await bcrypt.compare(currentToken, user.refreshTokenHash);
   if (!matches) {
-    return res.status(401).json({ success: false, message: "Invalid refresh token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid refresh token" });
   }
 
   const newAccessToken = signAccessToken({
@@ -271,14 +212,25 @@ export const me = asyncHandler(async (req, res) => {
 export const updateProfile = asyncHandler(async (req, res) => {
   const validated = validateBody(profileUpdateSchema, req.body);
   if (!validated.ok) {
-    return res.status(400).json({ success: false, message: "Invalid payload", details: validated.errors });
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Invalid payload",
+        details: validated.errors,
+      });
   }
 
   const payload = {};
   if (validated.data.username) {
-    const taken = await User.findOne({ username: validated.data.username, _id: { $ne: req.user._id } });
+    const taken = await User.findOne({
+      username: validated.data.username,
+      _id: { $ne: req.user._id },
+    });
     if (taken) {
-      return res.status(409).json({ success: false, message: "Username already taken" });
+      return res
+        .status(409)
+        .json({ success: false, message: "Username already taken" });
     }
     payload.username = validated.data.username;
   }
@@ -286,11 +238,10 @@ export const updateProfile = asyncHandler(async (req, res) => {
     payload.profileImage = validated.data.profileImage;
   }
 
-  const updatedUser = await User.findByIdAndUpdate(
-    req.user._id,
-    payload,
-    { new: true, runValidators: true }
-  ).select("_id username email emailVerified profileImage level points");
+  const updatedUser = await User.findByIdAndUpdate(req.user._id, payload, {
+    new: true,
+    runValidators: true,
+  }).select("_id username email profileImage level points");
 
   return res.status(200).json({
     success: true,
