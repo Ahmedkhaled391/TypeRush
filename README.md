@@ -10,6 +10,31 @@
 ![Socket.IO](https://img.shields.io/badge/Socket.IO-Real-time-010101?logo=socket.io)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)
 
+## Screenshots
+
+These screenshots are the actual project assets currently stored in the repository.
+
+### Landing Page
+
+![Homepage light mode](src/assets/Snapshots/homepageLightMode.png)
+
+![Homepage dark mode](src/assets/Snapshots/homepageDarkMode.png)
+
+### Lesson Practice and Results
+
+![Lesson practice screen](src/assets/Snapshots/solopractise.png)
+
+![Lesson results screen](src/assets/Snapshots/result.png)
+
+### Multiplayer and Stats
+
+![1v1 race screen](src/assets/Snapshots/1v1%20image.png)
+
+![Multiplayer lobby](src/assets/Snapshots/multiplayerpage.png)
+
+![Stats dashboard](src/assets/Snapshots/stats.png)
+
+
 TypeRush is inspired by TypingClub (A famous touch typing website), but it extends the classic typing practice model with:
 
 - structured lesson progression from beginner to advanced passages
@@ -63,29 +88,7 @@ The current implementation is split cleanly between a React frontend and an Expr
 - lesson grids and progression indicators
 - stats dashboard for recent attempts and aggregate performance
 
-## Screenshots
 
-These screenshots are the actual project assets currently stored in the repository.
-
-### Landing Page
-
-![Homepage light mode](src/assets/Snapshots/homepageLightMode.png)
-
-![Homepage dark mode](src/assets/Snapshots/homepageDarkMode.png)
-
-### Lesson Practice and Results
-
-![Lesson practice screen](src/assets/Snapshots/solopractise.png)
-
-![Lesson results screen](src/assets/Snapshots/result.png)
-
-### Multiplayer and Stats
-
-![1v1 race screen](src/assets/Snapshots/1v1%20image.png)
-
-![Multiplayer lobby](src/assets/Snapshots/multiplayerpage.png)
-
-![Stats dashboard](src/assets/Snapshots/stats.png)
 
 ## Tech Stack
 
